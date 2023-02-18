@@ -1,0 +1,36 @@
+.public-layout {
+  /* position:absolute; */
+  background: rgb(241, 241, 241);
+  background-size: cover;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.header {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  background: #fff;
+  width: 100%;
+  min-width: 940px;
+  height: 65px;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  /* overflow-y: */
+  padding-top: 65px;
+  padding: 65px 60px 0px 60px;
+  height: unset;
+}
+
+.footer {
+  position: relative;
+  padding: 0px 60px 0px 60px;
+  min-width: 940px;
+  background-color: aqua;
+}
