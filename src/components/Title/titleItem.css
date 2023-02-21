@@ -1,4 +1,4 @@
-.book-item {
+.title-item {
     width: 210px;
     height: 280px;
     padding: 10px;
@@ -9,38 +9,38 @@
     align-self: center;
 }
 
-.book-item:hover{
+.title-item:hover{
     box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.3);
 }
 
-.book-item-img, .book-item-name{
+.title-item-img, .title-item-name{
     cursor: pointer;
 }
 
-.book-item-img img{
+.title-item-img img{
     height: 190px;
     width: 190px;
 }
 
-.book-item-name{
+.title-item-name{
     margin-top: 8px;
     height: 40px;
     align-self: flex-start;
 }
 
-.book-item-info{
+.title-item-info{
     display: flex;
     width: 100%;
     margin-top: 4px;
     justify-content:space-between;
 }
 
-.book-item-info-price{
+.title-item-info-price{
     font-size: 18px;
     font-weight: bold;
     color: #c93333;
 }
 
-.book-item-info-sold{
+.title-item-info-sold{
     color: #7a7e7f;
 }

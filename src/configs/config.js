@@ -9,7 +9,7 @@ export const homeCategoriesList = [
     {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Thao_t_ng.jpg', name: 'Khoa học'}];
 
 
-export const exampleBooks = [
+export const exampleTitles = [
     {
         img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
         name: 'Forrest Gump',
@@ -82,4 +82,43 @@ export const exampleBooks = [
         price: 70000,
         sold: 2,
     }
+]
+
+export const cartItems = [
+    {
+        img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+        name: 'Forrest Gump 2',
+        price: 70000,
+        count: 2,
+    },    
+    // {
+    //     img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+    //     name: 'Forrest Gump Hello moi nguoi',
+    //     price: 70000000,
+    //     count: 1,
+    // },    
+    // {
+    //     img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+    //     name: 'Forrest Gump 2',
+    //     price: 7000,
+    //     count: 2,
+    // },
+    // {
+    //     img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+    //     name: 'Forrest Gump 2',
+    //     price: 70000,
+    //     count: 2,
+    // },    
+    // {
+    //     img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+    //     name: 'Forrest Gump Hello moi nguoi',
+    //     price: 70000000,
+    //     count: 1,
+    // },    
+    // {
+    //     img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+    //     name: 'Forrest Gump 2',
+    //     price: 7000,
+    //     count: 2,
+    // }
 ]

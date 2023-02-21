@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import {
   SearchOutlined
 } from '@ant-design/icons'
-
 import logo from '../../images/logo.png'
 import './navBar.css'
 import Menu from './Menu'

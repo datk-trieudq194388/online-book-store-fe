@@ -1,7 +1,5 @@
-.public-layout {
-  /* position:absolute; */
-  background: rgb(241, 241, 241);
-  background-size: cover;
+.public-layout, .onlyheader-layout{
+  background: #f1f1f1;
   width: 100%;
   height: fit-content;
   display: flex;
@@ -22,15 +20,16 @@
 }
 
 .content {
-  /* overflow-y: */
   padding-top: 65px;
   padding: 65px 60px 0px 60px;
-  height: unset;
+  height: fit-content;
 }
 
 .footer {
   position: relative;
+  bottom: 0;
   padding: 0px 60px 0px 60px;
   min-width: 940px;
+  height: 200px;
   background-color: aqua;
 }

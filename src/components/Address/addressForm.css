@@ -1,0 +1,9 @@
+.form-item-wrap{
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+}
+.form-item-label{
+    min-width: 150px;
+    padding: 4px;
+}

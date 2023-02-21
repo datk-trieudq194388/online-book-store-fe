@@ -1,7 +1,8 @@
-import Home from '../pages/Common/Home'
-import AccountInfo from '../pages/Common/AccountInfo'
+import Home from '../pages/Home/Home'
+import Cart from '../pages/Cart/Cart'
 import Login from '../pages/Auth/Login'
 import Register from '../pages/Auth/Register'
+import Checkout from '../pages/Checkout/Checkout'
 
 export const publicRoutes = [
   {
@@ -34,10 +35,56 @@ export const publicRoutes = [
     element: <Home />,
     exact: true
   },
-  {
-    key: 'AccountInfo',
-    path: '/AccountInfo',
-    element: <AccountInfo />,
-    exact: true
-  }
+  // {
+  //   key: 'AccountInfo',
+  //   path: '/AccountInfo',
+  //   element: <AccountInfo />,
+  //   exact: true
+  // },
+  // {
+  //   key: 'Cart',
+  //   path: '/cart',
+  //   element: <Cart />,
+  //   exact: true
+  // },
+  // {
+  //   key: 'History',
+  //   path: '/History',
+  //   element: <History />,
+  //   exact: true
+  // },
+  // {
+  //   key: 'BookTitle',
+  //   path: '/BookTitle',
+  //   element: <BookTitle />,
+  //   exact: true
+  // },
+  // {
+  //   key: 'BookTitle',
+  //   path: '/BookTitle/:id',
+  //   element: <BookTitle />,
+  //   exact: true
+  // },
+  // {
+  //   key: 'ReaderAccount',
+  //   path: '/ReaderAccount',
+  //   element: <ReaderAccount />,
+  //   exact: true
+  // }
 ]
+
+export const onlyHeaderRoutes = [
+  {
+    key: 'Cart',
+    path: '/cart',
+    element: <Cart />,
+    exact: true
+  },
+  {
+    key: 'Checkout',
+    path: '/checkout',
+    element: <Checkout />,
+    exact: true
+  },
+]
+

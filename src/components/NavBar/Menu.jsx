@@ -41,9 +41,9 @@ function Menu(props) {
         link: '/',
         classname: 'logout', 
       }
-    else if(role === 'A') {
-        // do something
-    }
+    // else if(role === 'A') {
+    //     // do something
+    // }
 
 
     useEffect(() => {
