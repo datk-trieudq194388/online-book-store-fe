@@ -91,18 +91,18 @@ export const cartItems = [
         price: 70000,
         count: 2,
     },    
-    // {
-    //     img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
-    //     name: 'Forrest Gump Hello moi nguoi',
-    //     price: 70000000,
-    //     count: 1,
-    // },    
-    // {
-    //     img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
-    //     name: 'Forrest Gump 2',
-    //     price: 7000,
-    //     count: 2,
-    // },
+    {
+        img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+        name: 'Forrest Gump Hello moi nguoi',
+        price: 70000000,
+        count: 1,
+    },    
+    {
+        img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+        name: 'Forrest Gump 2',
+        price: 7000,
+        count: 2,
+    },
     // {
     //     img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
     //     name: 'Forrest Gump 2',
@@ -122,3 +122,21 @@ export const cartItems = [
     //     count: 2,
     // }
 ]
+
+export const CheckValidate = (doc, ...items) => {
+    let flag = true;
+    items.map((item, i) =>{
+        const val = doc.getElementById(item).value;
+        let warning = doc.getElementById('warning'+(i+1));
+
+        // Show warning if username is empty
+        if(!val || val == "select-placeholder"){
+            warning.classList.remove('hidden');
+            flag = false   
+        }
+                 
+        else
+            warning.classList.add('hidden');
+    }) 
+    return flag;
+  }

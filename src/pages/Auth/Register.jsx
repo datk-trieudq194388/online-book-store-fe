@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import './auth.css'
 import { SERVER_ADDR } from '../../configs/serverAddr'
+import { CheckValidate } from '../../configs/config'
 
 function Register() {
   const navigate = useNavigate();
@@ -15,30 +16,14 @@ function Register() {
     }
   })
 
-  var username, password, passwordCheck, phone, fullname, email;
-  const CheckValidate = () => {
+  const checkValidate = () => {
+    const password = document.getElementById('password').value;
+    const passwordCheck = document.getElementById('password-check').value;
+    
     let flag = true;
+    flag = CheckValidate(document, 'username', 'password');
 
-    username = document.getElementById('username').value;
-    let warning = document.getElementById('warning1');
-    // Show warning if username is empty
-    if (!username) {
-      warning.classList.remove('hidden');
-      flag = false;
-    }
-    else warning.classList.add('hidden');
-
-    password = document.getElementById('password').value;
-    warning = document.getElementById('warning2');
-    // Show warning if password is empty
-    if (!password) {
-      warning.classList.remove('hidden');
-      flag = false;
-    }
-    else warning.classList.add('hidden');
-
-    passwordCheck = document.getElementById('password-check').value;
-    warning = document.getElementById('warning3');
+    const warning = document.getElementById('warning3');
     // Show warning if password check is empty or wrong
     if (passwordCheck) {
       if (passwordCheck !== password) {
@@ -56,15 +41,14 @@ function Register() {
   }
 
   const handleSignUp = async () => {
-    if (CheckValidate()) {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    if (checkValidate()) {
       const data = await fetch(`${SERVER_ADDR}/library_be/index.php?controller=auth&action=signUp`, {
         method: 'POST',
         body: JSON.stringify({
           username,
           password,
-          email,
-          fullname,
-          phone
         })
       });
 

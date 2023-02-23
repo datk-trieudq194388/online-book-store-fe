@@ -1,8 +1,16 @@
 import './checkout.css';
-import { cartItems } from '../../configs/config';
+import { cartItems , CheckValidate} from '../../configs/config';
 import AddressForm from '../../components/Address/AddressForm';
+import {CaretLeftFilled} from '@ant-design/icons'
+import CheckoutTitleItem from '../../components/Title/CheckoutTitleItem';
 
 function Checkout() {
+
+  function handleSubmit(){
+    CheckValidate(document, 'recipient-name', 'email', 'phone-number', 
+      'province-select', 'district-select', 'ward-select', 'detail-address')
+  }
+
 
   return (
     <div className='checkout-page'>
@@ -39,7 +47,7 @@ function Checkout() {
           </div>
         </div>
       </div>
-      <div className='checkout-block coupon'>
+      <div className='checkout-block coupon' hidden>
         <div className='block-title'>
           <span className='block-coupon-title-name'>MÃ KHUYẾN MÃI</span>
         </div>
@@ -54,9 +62,51 @@ function Checkout() {
         </div>
         <div className='checkout-separate-line'></div>
         <div className='block-content'>
-          <span>Temple</span>
+        {
+              cartItems.map((item, i)=>{
+                  return(
+                    <div>
+                      <CheckoutTitleItem key={i} img={item.img} name={item.name} price={item.price} count={item.count}/>
+                      {i+1 === cartItems.length? <></> : <div className='checkout-separate-line item'></div>}
+                    </div>
+                      
+                  )
+              })
+            }
         </div>
       </div>
+
+      <div className='end-checkout'>
+        <div className='end-checkout-info'>
+          <div className='end-checkout-items-price'>
+            <div>Thành tiền</div>
+            <div className='price'>{100000} đ</div>
+          </div>
+          <div className='end-checkout-shipping-price'>
+            <div>Phí vận chuyển</div>
+            <div className='price'>{20000} đ</div>
+          </div>
+          <div className='end-checkout-total-price'>
+            <div id='total-price-title'>Tổng số tiền</div>
+            <div id='total-price-number' className='price'>{2000000} đ</div>
+          </div>
+
+        </div>
+        <div className='checkout-separate-line end'></div>
+        <div className='end-checkout-handle'>
+          <div className='end-checkout-gobackcart'>
+            <CaretLeftFilled className='end-checkout-gbc-icon'/>
+            <span className='cart-checkout-gbc-title'>Quay về giỏ hàng</span>
+          </div>
+
+          <div  className='end-checkout-submit' onClick={handleSubmit}>
+            <span>Xác nhận thanh toán</span>
+          </div> 
+        </div>
+      
+      </div>
+
+    
     </div>
     
   )

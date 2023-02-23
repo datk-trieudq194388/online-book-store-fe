@@ -46,10 +46,6 @@
   background: #c10000;
 }
 
-.hidden {
-  visibility:hidden;
-}
-
 .login-box .warning {
   width: fit-content;
   height: fit-content;

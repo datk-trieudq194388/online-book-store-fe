@@ -9,12 +9,20 @@
     min-width: 600px;
     margin-top: 20px;
     border-radius: 5px;
+}.checkout-block.address{
+    margin-top: 28px;
+}
+.checkout-block.order{
+    margin-bottom: 186px;
 }
 
 .checkout-separate-line{
     height: 1px;
-    background-color: #eaeaea;
+    background-color: #dfdfdf;
     margin: 0px 16px;
+}
+.checkout-separate-line.end, .checkout-separate-line.item{
+    margin: 0;
 }
 
 .block-title{
@@ -31,16 +39,8 @@
     padding: 8px 16px;
     justify-content: start;
 }
-
-.block-address-edit{
-    color: #2F80ED;
-    font-weight: 600;
-    padding: 5px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-.block-address-edit:active{
-    color: #2769c0;
+.block-content.address {
+    padding: 8px 16px 10px 16px;
 }
 
 .block-content-wrap{
@@ -56,4 +56,73 @@
 
 .shipping-cost{
     font-weight: 600;
+}
+
+.end-checkout{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    background-color: #fff;
+    padding: 8px 60px;
+    min-width: 600px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.3);
+}
+.end-checkout-info{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    padding-bottom: 4px;
+}
+.end-checkout-info .price{
+    min-width: 150px;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+.end-checkout-items-price, .end-checkout-shipping-price, .end-checkout-total-price{
+    display: flex;
+    padding-bottom: 4px;
+}
+.end-checkout-info #total-price-title{
+    font-size: 18px;
+    font-weight: 600;
+}
+.end-checkout-info #total-price-number{
+    font-size: 18px;
+    font-weight: 700;
+    color: #f39801;
+}
+.end-checkout-handle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+.end-checkout-handle .end-checkout-submit{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 8px 0 0 0;
+    padding: 10px 40px;
+    background-color: #c93333;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.end-checkout-handle .end-checkout-submit:hover{
+    background-color: #c91111;
+}
+.end-checkout-handle .end-checkout-submit:active{
+    background-color: #c10000;
+}
+.end-checkout-handle .end-checkout-gobackcart{
+    font-weight: 600;
+    cursor: pointer;
+}
+.end-checkout-handle .end-checkout-gbc-icon{
+    margin-right: 5px;
 }

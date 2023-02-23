@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import './auth.css'
 import { SERVER_ADDR } from '../../configs/serverAddr'
+import { CheckValidate } from '../../configs/config'
 
 function Login() {
   const [ response, setResponse ] = useState();
@@ -14,33 +15,15 @@ function Login() {
       navigate('/');
     }
 
-    document.addEventListener('keydown', handleEnter);
-
-    return (() => document.removeEventListener('keydown', handleEnter));
+    // document.addEventListener('keydown', handleEnter);
+    // return (() => document.removeEventListener('keydown', handleEnter));
   });
-
-  var username, password;
-  const CheckValidate = () => {
-    username = document.getElementById('username').value;
-    let warning = document.getElementById('warning1');
-    // Show warning if username is empty
-    if (username) {
-      warning.classList.add('hidden');
-    }
-    else warning.classList.remove('hidden');
-
-    password = document.getElementById('password').value;
-    warning = document.getElementById('warning2');
-    // Show warning if password is empty
-    if (password) {
-      warning.classList.add('hidden');
-    }
-    else warning.classList.remove('hidden');
-  }
 
   const handleLogin = async () => {
     document.querySelector('#warning3').classList.add('hidden');
-    CheckValidate();
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    CheckValidate(document, 'username', 'password');
     
     // localStorage.setItem('role', 1);
     
@@ -71,11 +54,11 @@ function Login() {
     navigate('/register');
   }
 
-  const handleEnter = (e) => {
-    if (e.keyCode === 13) {
-      handleLogin();
-    }
-  }
+  // const handleEnter = (e) => {
+  //   if (e.keyCode === 13) {
+  //     handleLogin();
+  //   }
+  // }
 
   return (
     <div className='background'>
