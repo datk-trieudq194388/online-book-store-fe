@@ -3,6 +3,7 @@ import Cart from '../pages/Cart/Cart'
 import Login from '../pages/Auth/Login'
 import Register from '../pages/Auth/Register'
 import Checkout from '../pages/Checkout/Checkout'
+import TitleDetail from '../pages/Title/TitleDetail'
 
 export const publicRoutes = [
   {
@@ -59,12 +60,12 @@ export const publicRoutes = [
   //   element: <BookTitle />,
   //   exact: true
   // },
-  // {
-  //   key: 'BookTitle',
-  //   path: '/BookTitle/:id',
-  //   element: <BookTitle />,
-  //   exact: true
-  // },
+  {
+    key: 'Title',
+    path: '/title/:id',
+    element: <TitleDetail />,
+    exact: true
+  },
   // {
   //   key: 'ReaderAccount',
   //   path: '/ReaderAccount',

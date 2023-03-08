@@ -73,7 +73,7 @@
     cursor: pointer;
 }
 .cart-item-count-minus:active, .cart-item-count-plus:active{
-    padding: 3px;
+    padding: 4px;
     color: #252525;
 }
 
