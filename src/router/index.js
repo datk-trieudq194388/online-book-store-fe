@@ -4,6 +4,7 @@ import Login from '../pages/Auth/Login'
 import Register from '../pages/Auth/Register'
 import Checkout from '../pages/Checkout/Checkout'
 import TitleDetail from '../pages/Title/TitleDetail'
+import CatalogSearch from '../pages/Searching/CatalogSearch'
 
 export const publicRoutes = [
   {
@@ -66,12 +67,12 @@ export const publicRoutes = [
     element: <TitleDetail />,
     exact: true
   },
-  // {
-  //   key: 'ReaderAccount',
-  //   path: '/ReaderAccount',
-  //   element: <ReaderAccount />,
-  //   exact: true
-  // }
+  {
+    key: 'Searching',
+    path: '/catalog-search/result',
+    element: <CatalogSearch />,
+    exact: true
+  }
 ]
 
 export const onlyHeaderRoutes = [

@@ -1,17 +1,17 @@
-.mnlt-content-list{
+.slt-content-list{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1rem;
+    gap: 0.3rem;
 }
-.mnlt-content-list-wrap{
+.slt-content-list-wrap{
     width: 100%;
     align-content: center;
     display: flex;
     justify-content: center;
 }
 
-@media only screen and  (max-width: 1120px) {
-    .mnlt-content-list{
+@media only screen and  (max-width: 1325px) {
+    .slt-content-list{
         grid-template-columns: 1fr 1fr 1fr;
     }
 }

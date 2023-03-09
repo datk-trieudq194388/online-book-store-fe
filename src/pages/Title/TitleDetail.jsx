@@ -1,6 +1,5 @@
 import './titleDetail.css';
 import { useNavigate } from 'react-router-dom';
-import CartTitleItem from '../../components/Title/CartTitleItem';
 import {MinusOutlined, PlusOutlined, ShoppingCartOutlined, RightOutlined} from '@ant-design/icons'
 import { item } from '../../configs/config';
 

@@ -1,17 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
-import './miniListTitle.css'
-import TitleItem from './TitleItem'
+import './searchingListTitle.css'
+import SearchingTitleItem from './SearchingTitleItem'
 import { SERVER_ADDR } from '../../configs/serverAddr';
 import { exampleTitles } from '../../configs/config';
 
-const typeList = [
-  "Đang hot",
-  "Mới ra mắt"
-]
-
-function MiniListTitle(props) {
+function SearchingListTitle(props) {
   const navigate = useNavigate();
   const [ titleID, setTitleID ] = useState(0);
   const [ titleList, setTitleList ] = useState(null)
@@ -45,12 +40,12 @@ function MiniListTitle(props) {
   }
 
   if (exampleTitles) return (
-      <div className='mnlt-content-list'>
+      <div className='slt-content-list'>
         {exampleTitles.map((e, index) => {
           return (
-            <div className='mnlt-content-list-wrap' key={index}>
+            <div className='slt-content-list-wrap' key={index}>
               <></>
-              <TitleItem
+              <SearchingTitleItem
                 img={e.img}
                 name={e.name}
                 price={e.price}
@@ -65,4 +60,4 @@ function MiniListTitle(props) {
   else return(<></>)
 }
 
-export default MiniListTitle
+export default SearchingListTitle
