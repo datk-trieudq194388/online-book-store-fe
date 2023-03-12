@@ -1,8 +1,8 @@
 import './catalogSearch.css';
 import { useNavigate } from 'react-router-dom';
 import {MinusOutlined, PlusOutlined, ShoppingCartOutlined, RightOutlined} from '@ant-design/icons'
-import { item } from '../../configs/config';
-import SearchingListTitle from '../../components/Title/SearchingListTitle';
+import { item, exampleTitles } from '../../configs/config';
+import SearchingTitleItem from '../../components/Title/SearchingTitleItem';
 
 function CatalogSearch() {
   const navigate = useNavigate();
@@ -127,7 +127,22 @@ function CatalogSearch() {
             </div>
             <div className='titledetail-separate-line'></div> 
             <div className='titledetail-result-content'>
-              <SearchingListTitle />
+              <div className='slt-content-list'>
+                {exampleTitles.map((e, index) => {
+                  return (
+                    <div className='slt-content-list-wrap' key={index}>
+                      <></>
+                      <SearchingTitleItem
+                        img={e.img}
+                        name={e.name}
+                        price={e.price}
+                        sold={e.sold}
+                      />
+                      <></>
+                    </div>
+                  )}
+                )}
+              </div>
             </div>
         </div>
       </div>

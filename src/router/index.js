@@ -5,6 +5,11 @@ import Register from '../pages/Auth/Register'
 import Checkout from '../pages/Checkout/Checkout'
 import TitleDetail from '../pages/Title/TitleDetail'
 import CatalogSearch from '../pages/Searching/CatalogSearch'
+import Overral from '../pages/Profile/Overral'
+import ListOrder from '../pages/Profile/ListOrder'
+import Address from '../pages/Profile/Address'
+import AddressEdit from '../pages/Profile/AddressEdit'
+import AccountInfo from '../pages/Profile/AccountInfo'
 
 export const publicRoutes = [
   {
@@ -37,12 +42,36 @@ export const publicRoutes = [
     element: <Home />,
     exact: true
   },
-  // {
-  //   key: 'AccountInfo',
-  //   path: '/AccountInfo',
-  //   element: <AccountInfo />,
-  //   exact: true
-  // },
+  {
+    key: 'profile',
+    path: '/profile/overral',
+    element: <Overral/>,
+    exact: true
+  },
+  {
+    key: 'my-orders',
+    path: '/profile/orders',
+    element: <ListOrder/>,
+    exact: true
+  },
+  {
+    key: 'my-address',
+    path: '/profile/address',
+    element: <Address/>,
+    exact: true
+  },
+  {
+    key: 'address-edit',
+    path: '/profile/address/edit',
+    element: <AddressEdit/>,
+    exact: true
+  },
+  {
+    key: 'account-info',
+    path: '/profile/account-info',
+    element: <AccountInfo/>,
+    exact: true
+  },
   // {
   //   key: 'Cart',
   //   path: '/cart',

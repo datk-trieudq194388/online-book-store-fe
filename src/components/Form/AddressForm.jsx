@@ -1,4 +1,4 @@
-import './addressForm.css'
+import './form.css'
 import { getProvinces, getDistricts, getWards } from '../../configs/VietnameseAddresses';
 import { useEffect, useState } from 'react';
 

@@ -1,6 +1,6 @@
 import './checkout.css';
 import { cartItems , CheckValidate} from '../../configs/config';
-import AddressForm from '../../components/Address/AddressForm';
+import AddressForm from '../../components/Form/AddressForm';
 import {CaretLeftFilled} from '@ant-design/icons'
 import CheckoutTitleItem from '../../components/Title/CheckoutTitleItem';
 
@@ -30,7 +30,7 @@ function Checkout() {
         <div className='checkout-separate-line'></div>
         <div className='block-content'>
           <div className='block-content-wrap'>
-            <input type="radio" id="shipping" value="shipping" checked/>
+            <input className="checking-input" type="radio" id="shipping" value="shipping" checked/>
             <label for="shipping">Giao hàng tiêu chuẩn: <span className='shipping-cost'> 20.000đ</span></label>
           </div>
         </div>
@@ -42,7 +42,7 @@ function Checkout() {
         <div className='checkout-separate-line'></div>
         <div className='block-content'>
           <div className='block-content-wrap'>
-            <input type="radio" id="payment" value="payment" checked/>
+            <input className="checking-input" type="radio" id="payment" value="payment" checked/>
             <label for="payment">Thanh toán bằng tiền mặt khi nhận hàng</label>
           </div>
         </div>

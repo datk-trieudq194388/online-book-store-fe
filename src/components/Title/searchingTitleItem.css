@@ -26,6 +26,8 @@
     margin-top: 8px;
     height: 40px;
     align-self: flex-start;
+    text-decoration: none;
+    color: inherit;
 }
 
 .searching-title-item-info{

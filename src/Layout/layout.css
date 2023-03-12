@@ -30,6 +30,7 @@
   bottom: 0;
   padding: 0px 60px 0px 60px;
   min-width: 940px;
-  height: 200px;
-  background-color: aqua;
+  /* height: 200px; */
+  /* style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }} */
+  background-color: #b1b1b1;
 }

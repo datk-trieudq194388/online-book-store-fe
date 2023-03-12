@@ -1,7 +1,8 @@
 .cart-item{
     display: flex;
     justify-content: center;
-    height: 110px;
+    align-items: center;
+    height: fit-content;
     width: fit-content;
     padding: 18px 0;
 }
@@ -64,12 +65,15 @@
     border: 1px solid #e4e4e4;
     border-radius: 5px;
     display: flex;
+    /* align-items: center; */
 }
 
 .cart-item-count-minus, .cart-item-count-plus{
     color: #7a7e7f;
     padding: 5px;
     align-self: center;
+    display: flex;
+    align-items: center;
     cursor: pointer;
 }
 .cart-item-count-minus:active, .cart-item-count-plus:active{

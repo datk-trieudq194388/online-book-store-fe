@@ -13,7 +13,7 @@
     margin-top: 28px;
 }
 .checkout-block.order{
-    margin-bottom: 186px;
+    margin-bottom: 198px;
 }
 
 .checkout-separate-line{
@@ -49,7 +49,7 @@
     padding: 8px 0;
 }
 
-.block-content input{
+.block-content .checking-input{
     accent-color: #c93333;
     margin: 0 10px 0 0;
 }

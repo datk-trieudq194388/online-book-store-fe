@@ -19,11 +19,14 @@
 
 .header-left {
   width: 280px;
+  display: flex;
+  align-items: center;
 }
 
 .header-right{
   display: flex;
   width: 280px;
+  align-items: center;
 }
 
 .header-right div {
@@ -85,6 +88,9 @@
   border-radius: 8px;
   background-color: #c93333;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-search:hover {
@@ -101,7 +107,8 @@
 }
 
 .logo-img {
-  height: 60px;
+  /* height: 60px; */
+  width: 200px;
   padding: 0;
   cursor: pointer;
 }

@@ -8,6 +8,29 @@ export const homeCategoriesList = [
     {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/_am_m_.jpg', name: 'Tình cảm'}, 
     {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Thao_t_ng.jpg', name: 'Khoa học'}];
 
+export const exampleOrders = [
+    {
+        _id: '63c8e9ea045651ab11d745d0',
+        createAt: '2023-01-19T06:57:46.282+00:00',
+        recipientInfo: 'Duong Trieu',
+        totalAmount: 100000,
+        state: 'PE'
+    },
+    {
+        _id: '63c8e9ea045651ab11d745d0',
+        createAt: '2023-01-19T06:57:46.282+00:00',
+        recipientInfo: 'Duong Trieu',
+        totalAmount: 10000000,
+        state: 'PE'
+    },
+    {
+        _id: '63c8e9ea045651ab11d745d0',
+        createAt: '2023-01-19T06:57:46.282+00:00',
+        recipientInfo: 'Duong Trieu',
+        totalAmount: 100000,
+        state: 'PE'
+    }
+]
 
 export const exampleTitles = [
     {

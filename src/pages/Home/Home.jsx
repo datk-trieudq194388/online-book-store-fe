@@ -4,8 +4,8 @@ import {
   RiseOutlined
 } from '@ant-design/icons'
 import './home.css'
-import MiniListTitle from '../../components/Title/MiniListTitle';
-import { homeCategoriesList } from '../../configs/config';
+import TitleItem from '../../components/Title/TitleItem';
+import { homeCategoriesList, exampleTitles } from '../../configs/config';
 
 function Home(props) {
 
@@ -66,7 +66,22 @@ function Home(props) {
         </div>
         <div className='home-separate-line'></div>
         <div className='home-trending-content'>
-          <MiniListTitle/>
+          <div className='mnlt-content-list'>
+            {exampleTitles.map((e, index) => {
+              return (
+                <div className='mnlt-content-list-wrap' key={index}>
+                  <></>
+                  <TitleItem
+                    img={e.img}
+                    name={e.name}
+                    price={e.price}
+                    sold={e.sold}
+                  />
+                  <></>
+                </div>
+              )}
+            )}
+          </div>
         </div>
       </div>
     </div>

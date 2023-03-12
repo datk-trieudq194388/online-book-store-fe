@@ -1,4 +1,5 @@
 import NavBar from '../components/NavBar/NavBar'
+import Footer from '../components/Footer/Footer'
 import './layout.css'
 
 function PublicLayout(props) {
@@ -11,7 +12,7 @@ function PublicLayout(props) {
           {props.children}
         </div>
         <div className='footer'>
-          This is footer
+          <Footer/>
         </div>
     </div>
   )

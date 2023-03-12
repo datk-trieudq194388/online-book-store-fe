@@ -137,3 +137,21 @@
     font-size: 15px;
     margin-right: 10px;
 }
+
+.slt-content-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0.3rem;
+}
+.slt-content-list-wrap{
+    width: 100%;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and  (max-width: 1325px) {
+    .slt-content-list{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
