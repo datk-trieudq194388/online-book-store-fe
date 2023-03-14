@@ -41,8 +41,8 @@ function Cart() {
             {
               cartItems.map((item, i)=>{
                   return(
-                    <div>
-                      <CartTitleItem key={i} img={item.img} name={item.name} price={item.price} count={item.count}/>
+                    <div key={i}>
+                      <CartTitleItem img={item.img} name={item.name} price={item.price} count={item.count}/>
                       {i+1 === cartItems.length? <></> : <div className='cart-separate-line'></div>}
                     </div>
                   )

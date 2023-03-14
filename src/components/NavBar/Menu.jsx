@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-
 import './navBar.css'
+import { SERVER_ADDR } from '../../configs/config';
+import { useNavigate } from 'react-router-dom';
 import { 
     LoginOutlined, 
     BellOutlined,
@@ -13,67 +13,115 @@ let menu = [
     {
       icon: <BellOutlined />,
       text: 'Thông báo',
-      link: '/'
+      link: '/',
+      className: 'menu-item'
     },
     {
       icon: <ShoppingOutlined />,
       text: 'Giỏ hàng',
-      link: '/login'
+      link: '/login',
+      className: 'menu-item'
     },
     {
       icon: <UserOutlined />,
       text: 'Tài khoản',
-      link: '/login'
+      link: '/login',
+      className: 'menu-item'
     },
     {
       icon: <LoginOutlined />,
       text: 'Đăng nhập',
-      link: '/login'
+      link: '/login',
+      className: 'menu-item'
     }
   ]
 
-function Menu(props) {
-    const role = localStorage.getItem('role');
+function Menu() {
+  const navigate = useNavigate();
+  const accessToken = localStorage.getItem('accessToken');
+  let firstname = localStorage.getItem('firstname');
 
-    if(role === 'U') menu[3] = {
-        icon: <LogoutOutlined />,
-        text: 'Đăng xuất',
-        link: '/',
-        classname: 'logout', 
+  if(firstname)
+    firstname = firstname.length > 9 ? firstname.split(0, 7)+'...' : firstname;
+  else firstname = 'Tài khoản'
+
+  if(accessToken) menu = [
+    {
+      icon: <BellOutlined />,
+      text: 'Thông báo',
+      link: '/',
+      className: 'menu-item'
+    },
+    {
+      icon: <ShoppingOutlined />,
+      text: 'Giỏ hàng',
+      link: '/cart',
+      className: 'menu-item'
+    },
+    {
+      icon: <UserOutlined />,
+      text: firstname,
+      link: '/profile/overral',
+      className: 'menu-item'
+    },
+    {
+      icon: <LogoutOutlined />,
+      text: 'Đăng xuất',
+      link: '/',
+      className: 'menu-item',
+      logout: true
+    }
+  ]
+
+  async function handleLogOut() {
+    const token = localStorage.getItem('accessToken');
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
-    // else if(role === 'A') {
-    //     // do something
-    // }
+    };
+  
+    const response = await fetch(`${SERVER_ADDR}/user/logout`, options);
+    const data = await response.json();
+    console.log(data);
+    
+    // fix refresh token
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('firstname');
 
-
-    useEffect(() => {
-
-        const handleLogOut = () => {
-        localStorage.removeItem('role');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('username');
-        }
-
-        const logoutMenu = document.querySelector('.logout');
-        if (logoutMenu !== null) {
-        logoutMenu.addEventListener("click", handleLogOut);
-        }
-
-        return () => {
-        if (logoutMenu !== null) logoutMenu.removeEventListener("click", handleLogOut);
-        }
-    })
+    if(response.status == 403){
+      navigate('/login')
+    }
+    if(response.ok) {
+      navigate('/');
+      window.location.reload();
+    }
+  }
 
   return (
     <>
-        {menu.map( (e, index) => 
-        <div key={index} id={index} className={e.classname}>
-          <a href={e.link}>
-            <span className='icon'>{e.icon}</span>
-            <span className='text'>{e.text}</span>
-          </a>
-        </div>
-      )}
+      {menu.map( (e, i) => {
+        if(e.logout) 
+          return (
+            <div key={i} id={i} >
+              <div className={e.className} onClick={handleLogOut}>
+                <span className='icon'>{e.icon}</span>
+                <span className='text'>{e.text}</span>
+              </div>
+            </div>
+          )
+        else 
+          return (
+            <div key={i} id={i} >
+              <div className={e.className} onClick={()=>navigate(e.link)}>
+                <span className='icon'>{e.icon}</span>
+                <span className='text'>{e.text}</span>
+              </div>
+            </div>
+          )
+      })}
     </>
 
   )

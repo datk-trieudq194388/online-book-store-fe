@@ -29,21 +29,18 @@
   align-items: center;
 }
 
-.header-right div {
-  align-content: center;
-  padding: 14px 0px;
-  margin: 0px 5px;
-}
-.header-right div a {
+.header-right div .menu-item {
   position: relative;
   display: block;
   text-align: center;
   text-decoration: none;
   align-self: center;
+  margin: 0px 5px;
+  cursor: pointer;
 }
 
 
-.header-right div a .icon {
+.header-right div .menu-item .icon {
   display: block;
   min-width: 60px;
   transition: 0.5s;
@@ -51,7 +48,7 @@
   color: #7a7e7f;
 }
 
-.header-right div a .text {
+.header-right div .menu-item .text {
   font-size: 13px;
   align-items: center;
   color: #7a7e7f;

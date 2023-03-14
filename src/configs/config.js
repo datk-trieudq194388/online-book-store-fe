@@ -1,3 +1,5 @@
+export const SERVER_ADDR = 'http://localhost:8888'
+
 export const homeCategoriesList = [
     {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg', name: 'Tiểu thuyết'}, 
     {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Manga.jpg', name: 'Truyện tranh'}, 

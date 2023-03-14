@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import './auth.css'
-import { SERVER_ADDR } from '../../configs/serverAddr'
-import { CheckValidate } from '../../configs/config'
+import { CheckValidate, SERVER_ADDR } from '../../configs/config'
 
 function Register() {
   const navigate = useNavigate();

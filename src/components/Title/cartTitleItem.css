@@ -76,6 +76,9 @@
     align-items: center;
     cursor: pointer;
 }
+.cart-item-count-minus:hover, .cart-item-count-plus:hover{
+    color: #5f6263;
+}
 .cart-item-count-minus:active, .cart-item-count-plus:active{
     padding: 4px;
     color: #252525;

@@ -27,9 +27,9 @@ function Home(props) {
         <div className='home-separate-line'></div>
         <div className='home-categories-content'>
           {
-            homeCategoriesList.map((item) => {
+            homeCategoriesList.map((item, i) => {
               return(
-                <a className='home-categories-content-item' href='/'>
+                <a key={i} className='home-categories-content-item' href='/'>
                   <img src={item.img} alt={item.name}/>
                   <span>{item.name}</span>
                 </a>
@@ -67,9 +67,9 @@ function Home(props) {
         <div className='home-separate-line'></div>
         <div className='home-trending-content'>
           <div className='mnlt-content-list'>
-            {exampleTitles.map((e, index) => {
+            {exampleTitles.map((e, i) => {
               return (
-                <div className='mnlt-content-list-wrap' key={index}>
+                <div className='mnlt-content-list-wrap' key={i}>
                   <></>
                   <TitleItem
                     img={e.img}

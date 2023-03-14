@@ -21,14 +21,10 @@ function NavBar() {
     if (e.keyCode === 13) handleSearch();
   }
 
-  const goHome = () => {
-    navigate('/');
-  }
-
   return (
     <div className='nav-bar'>
       <div className='header-left'>
-         <img className='logo-img' src={logo} alt='logo' onClick={goHome}/>
+         <img className='logo-img' src={logo} alt='logo' onClick={() => navigate('/')}/>
       </div>
      
       <div className='header-center' >
@@ -38,7 +34,6 @@ function NavBar() {
             <SearchOutlined className='icon-search' />
           </button>
         </div>
-        
       </div>
 
       <div className='header-right'>
