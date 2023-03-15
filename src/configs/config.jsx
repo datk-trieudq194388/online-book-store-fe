@@ -1,4 +1,62 @@
+import jwt_decode from "jwt-decode";
+import Cookies from 'js-cookie';
+
+
 export const SERVER_ADDR = 'http://localhost:8888'
+
+export const CheckValidate = (doc, ...items) => {
+    let flag = true;
+    items.map((item, i) =>{
+        const val = doc.getElementById(item).value;
+        let warning = doc.getElementById('warning'+(i+1));
+
+        // Show warning if item is empty
+        if(!val || val == "select-placeholder"){
+            warning.classList.remove('hidden');
+            flag = false   
+        }
+                 
+        else
+            warning.classList.add('hidden');
+    }) 
+    return flag;
+}
+
+export const RefreshToken = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const decodedToken = jwt_decode(accessToken);
+
+    if(Date.now() >= decodedToken.exp * 1000){
+        const refreshToken = Cookies.get('refreshToken');
+        console.log(refreshToken)
+        const options = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${refreshToken}`
+            }
+        }
+        
+        const response = await fetch(`${SERVER_ADDR}/refresh-token`, options);
+        const data = await response.json();
+        console.log(data)
+
+        if(!response.ok){
+            alert('Bạn cần đăng nhập lại!')
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('firstname');
+            Cookies.remove('refreshToken');
+            return false;
+        }
+
+        localStorage.setItem('accessToken', data.accessToken);
+        Cookies.set('refreshToken', data.refreshToken, { expires: 30}); 
+    }
+    else console.log('valid token')
+
+    return true;
+}
+
 
 export const homeCategoriesList = [
     {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg', name: 'Tiểu thuyết'}, 
@@ -163,21 +221,3 @@ export const cartItems = [
     //     count: 2,
     // }
 ]
-
-export const CheckValidate = (doc, ...items) => {
-    let flag = true;
-    items.map((item, i) =>{
-        const val = doc.getElementById(item).value;
-        let warning = doc.getElementById('warning'+(i+1));
-
-        // Show warning if username is empty
-        if(!val || val == "select-placeholder"){
-            warning.classList.remove('hidden');
-            flag = false   
-        }
-                 
-        else
-            warning.classList.add('hidden');
-    }) 
-    return flag;
-  }

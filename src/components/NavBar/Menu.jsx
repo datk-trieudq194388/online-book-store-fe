@@ -1,5 +1,5 @@
 import './navBar.css'
-import { SERVER_ADDR } from '../../configs/config';
+import { RefreshToken, SERVER_ADDR } from '../../configs/config';
 import { useNavigate } from 'react-router-dom';
 import { 
     LoginOutlined, 
@@ -8,12 +8,13 @@ import {
     UserOutlined,
     LogoutOutlined,
   } from '@ant-design/icons'
+import Cookies from 'js-cookie';
 
-let menu = [
+const guessMenu = [
     {
       icon: <BellOutlined />,
       text: 'Thông báo',
-      link: '/',
+      link: '',
       className: 'menu-item'
     },
     {
@@ -45,11 +46,13 @@ function Menu() {
     firstname = firstname.length > 9 ? firstname.split(0, 7)+'...' : firstname;
   else firstname = 'Tài khoản'
 
-  if(accessToken) menu = [
+  let menu;
+  if(!accessToken) menu = guessMenu;
+  else menu = [
     {
       icon: <BellOutlined />,
       text: 'Thông báo',
-      link: '/',
+      link: '',
       className: 'menu-item'
     },
     {
@@ -74,6 +77,10 @@ function Menu() {
   ]
 
   async function handleLogOut() {
+    
+    const validRefToken = await RefreshToken();
+    if(!validRefToken) navigate('/login');
+
     const token = localStorage.getItem('accessToken');
     const options = {
       method: 'GET',
@@ -82,22 +89,22 @@ function Menu() {
         'Authorization': `Bearer ${token}`
       }
     };
-  
     const response = await fetch(`${SERVER_ADDR}/user/logout`, options);
     const data = await response.json();
     console.log(data);
     
-    // fix refresh token
     localStorage.removeItem('accessToken');
     localStorage.removeItem('firstname');
+    Cookies.remove('refreshToken');
 
-    if(response.status == 403){
+    if(response.status == 403)
+      navigate('/login')
+    else if(response.status == 401){
+      alert('Bạn không có quyền truy cập!');
       navigate('/login')
     }
-    if(response.ok) {
+    if(response.ok)
       navigate('/');
-      window.location.reload();
-    }
   }
 
   return (
@@ -123,7 +130,6 @@ function Menu() {
           )
       })}
     </>
-
   )
 }
 

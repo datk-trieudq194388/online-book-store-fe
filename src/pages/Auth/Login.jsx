@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 
@@ -12,10 +12,9 @@ function Login() {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) navigate('/');
     
-
     // document.addEventListener('keydown', handleEnter);
     // return (() => document.removeEventListener('keydown', handleEnter));
-  });
+  }, []);
 
   async function handleLogin (){
     let phoneNumber = document.getElementById('phone-number').value;
@@ -23,7 +22,7 @@ function Login() {
     CheckValidate(document, 'phone-number', 'password');
   
     if (phoneNumber && password) {
-      const response = await fetch(`${SERVER_ADDR}/user/login`, {
+      const options = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -33,18 +32,19 @@ function Login() {
           password: password
         }),
         credentials: 'include' // to get cookie but don't success yet
-      });
+      }
+      const response = await fetch(`${SERVER_ADDR}/user/login`, options);
       
       const data = await response.json();
-      console.log(response)
+      console.log(data)
 
       if (response.status == 401)
         alert('Sai số điện thoại hoặc mật khẩu!')
       else {
         localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('firstname', data.user.firstname);
-        Cookies.set('refreshToken', data.refreshToken, { expires: 365}); 
-        navigate('/');
+        localStorage.setItem('firstname', data.user.firstname ? data.user.firstname : '');
+        Cookies.set('refreshToken', data.refreshToken, { expires: 30}); 
+        navigate('/'); // fix navigate
       }
     }
   }

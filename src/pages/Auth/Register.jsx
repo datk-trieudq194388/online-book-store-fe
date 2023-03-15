@@ -1,26 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import Cookies from 'js-cookie';
 import './auth.css'
 import { CheckValidate, SERVER_ADDR } from '../../configs/config'
 
 function Register() {
   const navigate = useNavigate();
-  const [ response, setResponse ] = useState('');
 
   useEffect(() => {
-    const role = localStorage.getItem('role');
-    if (role !== null) {
-      navigate('/');
-    }
-  })
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) navigate('/');
+  }, []);
 
   const checkValidate = () => {
     const password = document.getElementById('password').value;
     const passwordCheck = document.getElementById('password-check').value;
     
     let flag = true;
-    flag = CheckValidate(document, 'username', 'password');
+    flag = CheckValidate(document, 'phone-number', 'password');
 
     const warning = document.getElementById('warning3');
     // Show warning if password check is empty or wrong
@@ -40,19 +37,34 @@ function Register() {
   }
 
   const handleSignUp = async () => {
-    const username = document.getElementById('username').value;
+    const phoneNumber = document.getElementById('phone-number').value;
     const password = document.getElementById('password').value;
     if (checkValidate()) {
-      const data = await fetch(`${SERVER_ADDR}/library_be/index.php?controller=auth&action=signUp`, {
+      const options = {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
-          username,
-          password,
+          phoneNumber: phoneNumber,
+          password: password
         })
-      });
+      }
+      const response = await fetch(`${SERVER_ADDR}/user/create`, options);
+      
+      const data = await response.json();
+      console.log(data)
 
-      setResponse(await data.json());
-      document.getElementById('warning8').classList.remove('hidden');
+      if (response.status == 409)
+        alert('Số điện thoại đã tồn tại!')
+      else if(response.status == 500)
+        alert('Không thể tạo tài khoản, hãy thử lại!')
+      else {
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('firstname', data.user.firstname ? data.user.firstname : '');
+        Cookies.set('refreshToken', data.refreshToken, { expires: 30}); 
+        navigate('/profile/account-info');
+      }
     }
   }
 
@@ -63,7 +75,7 @@ function Register() {
       <p className='auth-title'><b>Đăng ký</b></p>
           <div className='authen-info'>
             <input
-              id='username'
+              id='phone-number'
               className='input-form'
               placeholder='Nhập số điện thoại đăng ký'
             />
@@ -84,7 +96,6 @@ function Register() {
             <p id='warning3' className='warning hidden'>Cần nhập lại mật khẩu</p>
         </div>
         <button className='button-form' onClick={handleSignUp}>Đăng ký</button>
-        <p id='warning8' className='warning hidden' style={{fontSize: '15pt'}}>{typeof response === 'string' ? response : ''}</p>
       </div>
       <div></div>
     </div>
