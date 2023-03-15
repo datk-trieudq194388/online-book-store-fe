@@ -19,7 +19,7 @@
 
 .title-item-img img{
     height: 190px;
-    width: 190px;
+    max-width: 190px;
 }
 
 .title-item-name{

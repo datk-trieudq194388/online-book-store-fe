@@ -59,14 +59,14 @@ export const RefreshToken = async () => {
 
 
 export const homeCategoriesList = [
-    {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg', name: 'Tiểu thuyết'}, 
-    {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Manga.jpg', name: 'Truyện tranh'}, 
-    {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/_u_t_.jpg', name: 'Kinh tế'}, 
-    {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Thao_t_ng.jpg', name: 'Chính trị'}, 
-    {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Thao_t_ng.jpg', name: 'Tâm lý'}, 
-    {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/K_n_ng_cho_tr_.jpg', name: 'Kĩ năng sống'}, 
-    {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/_am_m_.jpg', name: 'Tình cảm'}, 
-    {img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Thao_t_ng.jpg', name: 'Khoa học'}];
+    {img: 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_240307.jpg', name: 'Tiểu thuyết'}, 
+    {img: 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_183732.jpg', name: 'Truyện tranh'}, 
+    {img: 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_195509_1_13785.jpg', name: 'Kinh tế'}, 
+    {img: 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_90160.jpg', name: 'Chính trị'}, 
+    {img: 'https://cdn0.fahasa.com/media/catalog/product/8/9/8936066692298.jpg', name: 'Tâm lý'}, 
+    {img: 'https://cdn0.fahasa.com/media/catalog/product/8/9/8936067605693.jpg', name: 'Kĩ năng sống'}, 
+    {img: 'https://cdn0.fahasa.com/media/catalog/product/b/i/bia-1_tqtp-1-tb.jpg', name: 'Tình cảm'}, 
+    {img: 'https://cdn0.fahasa.com/media/catalog/product/8/9/8936049631962.jpg', name: 'Khoa học'}];
 
 export const exampleOrders = [
     {
@@ -94,7 +94,7 @@ export const exampleOrders = [
 
 export const exampleTitles = [
     {
-        img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+        img: 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_90160.jpg',
         name: 'Forrest Gump',
         price: 50000,
         sold: 12,
@@ -169,7 +169,7 @@ export const exampleTitles = [
 
 export const item = {
     _id: '63c6ca210fef2f5fcd638cf6',
-    img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+    img: 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_90160.jpg',
     name: 'Forrest Gump 2',
     price: 70000,
     authors: ['Winston Groom'],
@@ -185,7 +185,7 @@ export const item = {
 
 export const cartItems = [
     {
-        img: 'https://cdn0.fahasa.com/media/wysiwyg/Duy-VHDT/Danh-muc-san-pham/Ti_u_Thuy_t.jpg',
+        img: 'https://cdn0.fahasa.com/media/catalog/product/i/m/image_90160.jpg',
         name: 'Forrest Gump 2',
         price: 70000,
         count: 2,

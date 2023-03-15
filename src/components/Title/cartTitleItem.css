@@ -18,13 +18,13 @@
 }
 
 .cart-item-img{
+    height: 120px;
     width: 120px;
-    min-width: 120px;
     cursor: pointer;
 }
 .cart-item-img img{
-    width:inherit;
     height: inherit;
+    max-width: 120px;
 }
 
 .cart-item-unitprice, .cart-item-total{

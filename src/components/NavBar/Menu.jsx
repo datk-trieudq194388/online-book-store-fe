@@ -103,8 +103,11 @@ function Menu() {
       alert('Bạn không có quyền truy cập!');
       navigate('/login')
     }
-    if(response.ok)
+    if(response.ok){
       navigate('/');
+      window.location.reload();
+    }
+      
   }
 
   return (

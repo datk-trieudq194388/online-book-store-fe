@@ -13,13 +13,13 @@
     box-shadow: 0 0 6px 1px rgba(100, 100, 100, 0.3);
 }
 
-.searching-title-item-img, .title-item-name{
+.searching-title-item-img, .searching-title-item-name{
     cursor: pointer;
 }
 
 .searching-title-item-img img{
     height: 190px;
-    width: 190px;
+    max-width: 190px;
 }
 
 .searching-title-item-name{
@@ -27,6 +27,9 @@
     height: 40px;
     align-self: flex-start;
     text-decoration: none;
+    color: inherit;
+}
+.searching-title-item-name:hover{
     color: inherit;
 }
 
