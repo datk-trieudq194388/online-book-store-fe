@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 
 import './auth.css'
-import { CheckValidate , SERVER_ADDR} from '../../configs/config'
+import { CheckValidate } from '../../configs/config'
+import { login } from '../../api/AuthAPI';
 
 function Login() {
   const navigate = useNavigate();
@@ -17,33 +18,23 @@ function Login() {
   }, []);
 
   async function handleLogin (){
-    let phoneNumber = document.getElementById('phone-number').value;
-    let password = document.getElementById('password').value;
-    CheckValidate(document, 'phone-number', 'password');
+    
+    const validated = CheckValidate(document, 'phone-number', 'password');
   
-    if (phoneNumber && password) {
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phoneNumber: phoneNumber,
-          password: password
-        }),
-        credentials: 'include' // to get cookie but don't success yet
-      }
-      const response = await fetch(`${SERVER_ADDR}/user/login`, options);
-      
-      const data = await response.json();
-      console.log(data)
+    if (validated) {
+      const phoneNumber = document.getElementById('phone-number').value;
+      const password = document.getElementById('password').value;
 
-      if (response.status == 401)
+      const res = await login({phoneNumber, password});
+
+      if (res.status == 401)
         alert('Sai số điện thoại hoặc mật khẩu!')
+      else if(!res.ok)
+        alert('Lỗi đăng nhập, hãy thử lại!')
       else {
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('firstname', data.user.firstname ? data.user.firstname : '');
-        Cookies.set('refreshToken', data.refreshToken, { expires: 30}); 
+        localStorage.setItem('accessToken', res.data.accessToken);
+        localStorage.setItem('firstname', res.data.user.firstname ? res.data.user.firstname : '');
+        Cookies.set('refreshToken', res.data.refreshToken, { expires: 30}); 
         navigate('/'); // fix navigate
       }
     }
@@ -65,14 +56,14 @@ function Login() {
           className='input-form'
           placeholder='Nhập số điện thoại'
         />
-        <p id='warning1' className='warning hidden'>Cần nhập số điện thoại</p>
+        <p id='warning-phone-number' className='warning hidden'>Cần nhập số điện thoại</p>
         <input
           id='password'
           type='password'
           className='input-form'
           placeholder='Nhập mật khẩu'
         />
-        <p id='warning2' className='warning hidden'>Cần nhập mật khẩu</p>
+        <p id='warning-password' className='warning hidden'>Cần nhập mật khẩu</p>
         <button className='button-form' onClick={handleLogin}>Đăng nhập</button>
         <a className='register-tag' href='' onClick={() => navigate('/register')}>Tạo tài khoản</a>
       </div>

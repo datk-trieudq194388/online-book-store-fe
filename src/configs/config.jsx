@@ -1,14 +1,15 @@
 import jwt_decode from "jwt-decode";
 import Cookies from 'js-cookie';
+import { getRefreshToken } from "../api/SiteAPI";
 
 
 export const SERVER_ADDR = 'http://localhost:8888'
 
 export const CheckValidate = (doc, ...items) => {
     let flag = true;
-    items.map((item, i) =>{
+    items.map((item) =>{
         const val = doc.getElementById(item).value;
-        let warning = doc.getElementById('warning'+(i+1));
+        let warning = doc.getElementById('warning-'+ item);
 
         // Show warning if item is empty
         if(!val || val == "select-placeholder"){
@@ -29,19 +30,10 @@ export const RefreshToken = async () => {
     if(Date.now() >= decodedToken.exp * 1000){
         const refreshToken = Cookies.get('refreshToken');
         console.log(refreshToken)
-        const options = {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${refreshToken}`
-            }
-        }
         
-        const response = await fetch(`${SERVER_ADDR}/refresh-token`, options);
-        const data = await response.json();
-        console.log(data)
+        const res = await getRefreshToken(refreshToken);
 
-        if(!response.ok){
+        if(!res.ok){
             alert('Bạn cần đăng nhập lại!')
             localStorage.removeItem('accessToken');
             localStorage.removeItem('firstname');
@@ -49,8 +41,8 @@ export const RefreshToken = async () => {
             return false;
         }
 
-        localStorage.setItem('accessToken', data.accessToken);
-        Cookies.set('refreshToken', data.refreshToken, { expires: 30}); 
+        localStorage.setItem('accessToken', res.data.accessToken);
+        Cookies.set('refreshToken', res.data.refreshToken, { expires: 30}); 
     }
     else console.log('valid token')
 

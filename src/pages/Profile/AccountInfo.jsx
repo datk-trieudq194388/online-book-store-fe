@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CategorySide from '../../components/Profile/CategorySide';
 import AccountInfoForm from '../../components/Form/AccountInfoForm';
-import { CheckValidate, RefreshToken, SERVER_ADDR } from '../../configs/config';
+import { CheckValidate, RefreshToken } from '../../configs/config';
+import { getAccountInfo, updateAccountInfo } from '../../api/UserAPI';
 
 function AccountInfo(){
     const navigate = useNavigate();
@@ -16,21 +17,12 @@ function AccountInfo(){
             if(!validRefToken) navigate('/login');
 
             const token = localStorage.getItem('accessToken');
-            const options = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            };
-            const response = await fetch(`${SERVER_ADDR}/user/profile`, options);
             
-            const data = await response.json();
-            console.log(data)
+            const res = await getAccountInfo(token);
     
-            if (!response.ok)
+            if (!res.ok)
                 alert('Gửi yêu cầu thất bại, hãy thử lại!')
-            else setUser(data);
+            else setUser(res.data);
         }
 
         fetchData();
@@ -56,31 +48,15 @@ function AccountInfo(){
             else if(F) gender = 'F'
 
             const token = localStorage.getItem('accessToken');
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }, 
-                body: JSON.stringify({
-                    lastname: lastname,
-                    firstname: firstname,
-                    email: email,
-                    phoneNumber: phoneNumber,
-                    gender: gender,
-                })
-            };
-            const response = await fetch(`${SERVER_ADDR}/user/update-profile`, options);
             
-            const data = await response.json();
-            console.log(data)
+            const res = await updateAccountInfo(token, {lastname, firstname, email, phoneNumber, gender});
     
-            if (!response.ok)
+            if (!res.ok)
                 alert('Gửi yêu cầu thất bại, hãy thử lại!')
             else{
                 alert('Cập nhật thông tin thành công!')
-                localStorage.setItem('firstname', data.firstname ? data.firstname : '');
-                setUser(data);
+                localStorage.setItem('firstname', res.data.firstname ? res.data.firstname : '');
+                setUser(res.data);
             }
         }
       }

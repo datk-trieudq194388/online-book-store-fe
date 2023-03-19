@@ -9,3 +9,7 @@
 .my-address-update-address:active{
     color: #c10000;
 }
+
+.ma-hidden{
+    display: none;
+}

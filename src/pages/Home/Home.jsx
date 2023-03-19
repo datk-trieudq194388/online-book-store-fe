@@ -6,13 +6,38 @@ import {
 import './home.css'
 import TitleItem from '../../components/Title/TitleItem';
 import { homeCategoriesList, exampleTitles } from '../../configs/config';
+import { ViewType } from '../../configs/global';
+import { getUserTitle } from '../../api/TitleAPI';
+import { useNavigate } from 'react-router-dom';
 
 function Home(props) {
+  const navigate = useNavigate();
 
-  const [selected, setSelected] = useState('newest');
+  const [selected, setSelected] = useState(ViewType.NEWEST);
+  const [titles, setTitles] = useState([])
 
-  function selectTypeOfTrending(type){
-    // do something
+  useEffect(() => {
+    async function fetchData() {
+     
+      const res = await getUserTitle(selected);
+    
+      if (!res.ok)
+        alert('Gửi yêu cầu thất bại, hãy thử lại!')
+      else setTitles(res.data)
+  }
+
+  fetchData();
+
+  }, [])
+
+  async function selectTypeOfTrending(type){
+
+    const res = await getUserTitle(type);
+    
+    if (!res.ok)
+      alert('Gửi yêu cầu thất bại, hãy thử lại!')
+    else setTitles(res.data)
+    
 
     setSelected(type);
   }
@@ -45,20 +70,20 @@ function Home(props) {
           <span className='home-box-title-name'>Xu hướng mua sắm</span>
           <div className='home-box-title-trending'>
             <span 
-              className={'home-box-title-trending-order'+(selected === 'newest' ? ' active' : '')} 
-              onClick={()=>selectTypeOfTrending('newest')}
+              className={'home-box-title-trending-order'+(selected === ViewType.NEWEST ? ' active' : '')} 
+              onClick={()=>selectTypeOfTrending(ViewType.NEWEST)}
             >
               Mới nhất
             </span>
             <span 
-              className={'home-box-title-trending-order'+(selected === 'best-sellers' ? ' active' : '')} 
-              onClick={()=>selectTypeOfTrending('best-sellers')}
+              className={'home-box-title-trending-order'+(selected === ViewType.BEST_SELLERS ? ' active' : '')} 
+              onClick={()=>selectTypeOfTrending(ViewType.BEST_SELLERS)}
             >
               Bán chạy nhất
             </span>
             <span 
-              className={'home-box-title-trending-order'+(selected === 'most-views' ? ' active' : '')} 
-              onClick={()=>selectTypeOfTrending('most-views')}
+              className={'home-box-title-trending-order'+(selected === ViewType.MOST_VIEWS ? ' active' : '')} 
+              onClick={()=>selectTypeOfTrending(ViewType.MOST_VIEWS)}
             >
               Nhiều lượt xem nhất
             </span>
@@ -67,16 +92,11 @@ function Home(props) {
         <div className='home-separate-line'></div>
         <div className='home-trending-content'>
           <div className='mnlt-content-list'>
-            {exampleTitles.map((e, i) => {
+            {titles.map((e, i) => {
               return (
                 <div className='mnlt-content-list-wrap' key={i}>
                   <></>
-                  <TitleItem
-                    img={e.img}
-                    name={e.name}
-                    price={e.price}
-                    sold={e.sold}
-                  />
+                  <TitleItem title={e} />
                   <></>
                 </div>
               )}

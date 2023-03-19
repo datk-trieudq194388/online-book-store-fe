@@ -1,3 +1,111 @@
+
+export function getProvinces(){
+  let P = [];
+  VietnameseAddresses.forEach(e =>{ 
+      let p = {
+          name: e.name,
+          code: e.code
+      };
+      P.push(p);
+  })
+  return P;
+}
+
+export function getProvinceName(provinceCode){
+  let provinceName = ''
+  VietnameseAddresses.forEach(e =>{ 
+      if(e.code == provinceCode) {
+        provinceName = e.name;
+        return;
+      }
+  })
+  return provinceName;
+}
+
+export function getDistricts(pCode){
+  let D = [];
+  VietnameseAddresses.forEach(e1 =>{
+      if(e1.code == pCode){
+          const vnDistricts = e1.districts;
+          vnDistricts.forEach(e2 =>{
+              const d = {
+                  name: e2.name,
+                  code: e2.code
+              }
+              D.push(d);
+          })
+          return;
+      }
+  })
+  return D;
+}
+
+export function getDistrictName(provinceCode, districtCode){
+  let districtName = '';
+  VietnameseAddresses.forEach(e1 =>{
+      if(e1.code == provinceCode){
+          const vnDistricts = e1.districts;
+          vnDistricts.forEach(e2 =>{
+              if(e2.code == districtCode){
+                districtName = e2.name;
+                return;
+              }
+          })
+          return;
+      }
+  })
+  return districtName;
+}
+
+export function getWards(pCode, dCode){
+  let W = []
+  VietnameseAddresses.forEach(e1 =>{
+      if(e1.code == pCode){
+          const vnDistricts = e1.districts;
+          vnDistricts.forEach(e2 =>{
+              if(e2.code == dCode){
+                  const vnWards = e2.wards;
+                  vnWards.forEach(e3 =>{
+                      const w = {
+                          name: e3.name,
+                          code: e3.code
+                      }
+                      W.push(w);
+                  })
+              }
+              return;
+          })
+          return;
+      }
+  })
+  return W;
+}
+
+export function getWardName(provinceCode, districtCode, wardCode){
+  let wardName = '';
+  VietnameseAddresses.forEach(e1 =>{
+      if(e1.code == provinceCode){
+          const vnDistricts = e1.districts;
+          vnDistricts.forEach(e2 =>{
+              if(e2.code == districtCode){
+                  const vnWards = e2.wards;
+                  vnWards.forEach(e3 =>{
+                      if(e3.code == wardCode){
+                        wardName = e3.name;
+                        return;
+                      }
+                  })
+              }
+              return;
+          })
+          return;
+      }
+  })
+  return wardName;
+}
+
+
+
 export const VietnameseAddresses = 
 [
     {
@@ -81129,57 +81237,3 @@ export const VietnameseAddresses =
       ]
     }
   ]
-
-export function getProvinces(){
-    let P = [];
-    VietnameseAddresses.forEach(e =>{ 
-        let p = {
-            name: e.name,
-            code: e.code
-        };
-        P.push(p);
-    })
-    return P;
-}
-
-export function getDistricts(pCode){
-    let D = [];
-    VietnameseAddresses.forEach(e1 =>{
-        if(e1.code == pCode){
-            const vnDistricts = e1.districts;
-            vnDistricts.forEach(e2 =>{
-                const d = {
-                    name: e2.name,
-                    code: e2.code
-                }
-                D.push(d);
-            })
-            return;
-        }
-    })
-    return D;
-}
-
-export function getWards(pCode, dCode){
-    let W = []
-    VietnameseAddresses.forEach(e1 =>{
-        if(e1.code == pCode){
-            const vnDistricts = e1.districts;
-            vnDistricts.forEach(e2 =>{
-                if(e2.code == dCode){
-                    const vnWards = e2.wards;
-                    vnWards.forEach(e3 =>{
-                        const w = {
-                            name: e3.name,
-                            code: e3.code
-                        }
-                        W.push(w);
-                    })
-                }
-                return;
-            })
-            return;
-        }
-    })
-    return W;
-}

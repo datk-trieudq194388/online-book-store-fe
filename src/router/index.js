@@ -92,7 +92,7 @@ export const publicRoutes = [
   // },
   {
     key: 'Title',
-    path: '/title/:id',
+    path: '/title/:slug',
     element: <TitleDetail />,
     exact: true
   },

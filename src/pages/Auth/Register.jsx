@@ -2,7 +2,8 @@ import { useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import './auth.css'
-import { CheckValidate, SERVER_ADDR } from '../../configs/config'
+import { CheckValidate } from '../../configs/config'
+import { signup } from '../../api/AuthAPI';
 
 function Register() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function Register() {
     let flag = true;
     flag = CheckValidate(document, 'phone-number', 'password');
 
-    const warning = document.getElementById('warning3');
+    const warning = document.getElementById('warning-password-check');
     // Show warning if password check is empty or wrong
     if (passwordCheck) {
       if (passwordCheck !== password) {
@@ -37,32 +38,21 @@ function Register() {
   }
 
   const handleSignUp = async () => {
-    const phoneNumber = document.getElementById('phone-number').value;
-    const password = document.getElementById('password').value;
-    if (checkValidate()) {
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phoneNumber: phoneNumber,
-          password: password
-        })
-      }
-      const response = await fetch(`${SERVER_ADDR}/user/create`, options);
-      
-      const data = await response.json();
-      console.log(data)
 
-      if (response.status == 409)
+    if (checkValidate()) {
+      const phoneNumber = document.getElementById('phone-number').value;
+      const password = document.getElementById('password').value;
+
+      const res = await signup({phoneNumber, password});
+
+      if (res.status == 409)
         alert('Số điện thoại đã tồn tại!')
-      else if(response.status == 500)
-        alert('Không thể tạo tài khoản, hãy thử lại!')
+      else if(!res.ok)
+        alert('Lỗi tạo tài khoản, hãy thử lại!')
       else {
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('firstname', data.user.firstname ? data.user.firstname : '');
-        Cookies.set('refreshToken', data.refreshToken, { expires: 30}); 
+        localStorage.setItem('accessToken', res.data.accessToken);
+        localStorage.setItem('firstname', res.data.user.firstname ? res.data.user.firstname : '');
+        Cookies.set('refreshToken', res.data.refreshToken, { expires: 30}); 
         navigate('/profile/account-info');
       }
     }
@@ -79,21 +69,21 @@ function Register() {
               className='input-form'
               placeholder='Nhập số điện thoại đăng ký'
             />
-            <p id='warning1' className='warning hidden'>Cần nhập số điện thoại</p>
+            <p id='warning-phone-number' className='warning hidden'>Cần nhập số điện thoại</p>
             <input
               id='password'
               type='password'
               className='input-form'
               placeholder='Nhập mật khẩu'
             />
-            <p id='warning2' className='warning hidden'>Cần nhập mật khẩu</p>
+            <p id='warning-password' className='warning hidden'>Cần nhập mật khẩu</p>
             <input
               id='password-check'
               type='password'
               className='input-form'
               placeholder='Nhập lại mật khẩu'
             />
-            <p id='warning3' className='warning hidden'>Cần nhập lại mật khẩu</p>
+            <p id='warning-password-check' className='warning hidden'>Cần nhập lại mật khẩu</p>
         </div>
         <button className='button-form' onClick={handleSignUp}>Đăng ký</button>
       </div>

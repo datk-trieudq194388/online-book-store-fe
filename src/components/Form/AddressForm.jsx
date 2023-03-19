@@ -1,9 +1,15 @@
 import './form.css'
 import { getProvinces, getDistricts, getWards } from '../../configs/VietnameseAddresses';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function AddressForm(){
+function AddressForm(props){
+    const navigate = useNavigate();
 
+    const [recipientName, setRepicipentName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [detailAddr, setDetailAddr] = useState('');
     const [provinces, setProvinces] = useState(null);
     const [p, setP] = useState('select-placeholder');
     const [districts, setDistricts] = useState(null);
@@ -12,9 +18,24 @@ function AddressForm(){
     const [w, setW] = useState('select-placeholder');
 
     useEffect(()=>{
+        setRepicipentName(props.addr[0]??'');
+        setEmail(props.email??'');
+        setPhoneNumber(props.addr[1]??'');
+        setDetailAddr(props.addr[5]??'');
+
         const Ps = getProvinces();
         setProvinces(Ps)
-    }, [])
+
+        if(props.addr.length != 0 && props.addr[2]){
+            setP(props.addr[2])
+            setD(props.addr[3])
+            setW(props.addr[4])
+            setDistricts(getDistricts(props.addr[2]))
+            setWards(getWards(props.addr[2], props.addr[3]))
+        }
+        else console.log('Non-addr: ',props.addr)
+
+    }, [props.addr])
     
     function onProviceChange(e){
         const Ds = getDistricts(e.target.value);
@@ -28,6 +49,7 @@ function AddressForm(){
     function onDistrictChange(e){
         const Ws = getWards(p, e.target.value);
         setD(e.target.value)
+        setW('select-placeholder')
         setWards(Ws)
     }
 
@@ -45,19 +67,24 @@ function AddressForm(){
                     type='text'
                     className='form-item-input'
                     placeholder='Nhập họ và tên người nhận'
+                    value={recipientName}
+                    onChange={(e)=>setRepicipentName(e.target.value)}
                 />
             </div>
-            <span id='warning1' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-recipient-name' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label' htmlFor='email'>Email</label>
                 <input
                     id='email'
                     type='email'
-                    className='form-item-input'
-                    placeholder='Nhập email'
+                    className='form-item-input form-item-special'
+                    placeholder='Thêm email'
+                    disabled
+                    value={email}
                 />
+                <span className='form-item-special-change' onClick={()=> navigate('/profile/account-info')}>Cập nhật</span>
             </div>
-            <span id='warning2' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-email' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label' htmlFor='phone-number'>Số điện thoại</label>
                 <input
@@ -65,13 +92,17 @@ function AddressForm(){
                     type='number'
                     className='form-item-input'
                     placeholder='Nhập số điện thoại'
+                    value={phoneNumber}
+                    onChange={(e)=>setPhoneNumber(e.target.value)}
                 />
             </div>
-            <span id='warning3' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-phone-number' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label'>Tỉnh/Thành phố</label>
-                <select id="province-select" className='form-item-select' onChange={onProviceChange} value={p}>
-                    <option value="select-placeholder" disabled selected hidden>Chọn Tỉnh/Thành phố</option>
+                <select id="province-select" className='form-item-select' 
+                    onChange={onProviceChange} value={p}
+                >
+                    <option value="select-placeholder" disabled hidden>Chọn Tỉnh/Thành phố</option>
                     {
                         provinces?.map((e, i) => {
                             return <option key={i} value={e.code}>{e.name}</option>
@@ -79,7 +110,7 @@ function AddressForm(){
                     }
                 </select>
             </div>
-            <span id='warning4' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-province-select' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label'>Quận/Huyện</label>
                 <select id="district-select" className='form-item-select' 
@@ -94,7 +125,7 @@ function AddressForm(){
                     }
                 </select>
             </div>
-            <span id='warning5' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-district-select' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label'>Phường/Xã</label>
                 <select id="ward-select" className='form-item-select' 
@@ -109,7 +140,7 @@ function AddressForm(){
                     }
                 </select>
             </div>
-            <span id='warning6' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-ward-select' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label' htmlFor='detail-address'>Địa chỉ nhận hàng</label>
                 <input
@@ -117,9 +148,11 @@ function AddressForm(){
                     type='text'
                     className='form-item-input'
                     placeholder='Nhập địa chỉ chi tiết'
+                    value={detailAddr}
+                    onChange={(e)=>setDetailAddr(e.target.value)}
                 />
             </div>
-            <span id='warning7' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-detail-address' className='warning hidden' >Thông tin này không thể để trống</span>
         </div>
     );
 }

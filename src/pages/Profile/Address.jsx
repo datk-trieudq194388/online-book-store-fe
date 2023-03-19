@@ -1,13 +1,42 @@
 import './address.css'
 import './profile.css'
-import { getProvinces, getDistricts, getWards } from '../../configs/VietnameseAddresses';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CategorySide from '../../components/Profile/CategorySide';
-import OrderList from '../../components/Order/OrderList';
+import { getAccountInfo } from '../../api/UserAPI';
+import { RefreshToken } from '../../configs/config';
+import { getProvinceName, getDistrictName, getWardName } from '../../configs/VietnameseAddresses';
 
 function Address(){
     const navigate = useNavigate();
+    const [addr, setAddr] = useState([]);
+
+    useEffect(()=>{
+        async function fetchData() {
+            const validRefToken = await RefreshToken();
+            if(!validRefToken) navigate('/login');
+
+            const token = localStorage.getItem('accessToken');
+            
+            const res = await getAccountInfo(token, ['address']);
+    
+            if (!res.ok)
+                alert('Gửi yêu cầu thất bại, hãy thử lại!')
+            else {
+                const tmpAddr = res.data.address;
+                if(tmpAddr.length != 0){
+                    tmpAddr[4] = getWardName(tmpAddr[2], tmpAddr[3], tmpAddr[4]);
+                    tmpAddr[3] = getDistrictName(tmpAddr[2], tmpAddr[3]);
+                    tmpAddr[2] = getProvinceName(tmpAddr[2]);
+                    setAddr(tmpAddr);
+                }
+            }
+        }
+
+        fetchData();
+          
+    }, []);
+
     return(
         <div className='profile-page'>
             <div className='profile-left-side'>
@@ -20,11 +49,12 @@ function Address(){
                 </div>
                 <div className='titledetail-separate-line'></div> 
                 <div className='my-address-info-content'>
-                    <p className='p ma'>ĐỊA CHỈ GIAO HÀNG MẶC ĐỊNH</p>
-                    <p className='p ma'>{'Trieu Duong'}</p>
-                    <p className='p ma'>{'357 Vọng'}</p>
-                    <p className='p ma'>{'Phường Đồng Tâm, Quận Hai Bà Trưng, Hà Nội'}</p>
-                    <p className='p ma'>Tel: {'0123456789'}</p>
+                    <p className='p ma-title'>ĐỊA CHỈ GIAO HÀNG MẶC ĐỊNH</p>
+                    <p className={'p' + (addr.length == 0 ? '' : ' ma-hidden')}><i>Chưa có</i></p>
+                    <p className={'p' + (addr.length == 0 ? ' ma-hidden' : '')}>{addr[0]}</p>
+                    <p className={'p' + (addr.length == 0 ? ' ma-hidden' : '')}>{addr[5]}</p>
+                    <p className={'p' + (addr.length == 0 ? ' ma-hidden' : '')}>{addr[4] + ', ' + addr[3] + ', ' + addr[2]}</p>
+                    <p className={'p' + (addr.length == 0 ? ' ma-hidden' : '')}>Tel: {addr[1]}</p>
                     <span className='my-address-update-address'
                         onClick={()=>navigate('/profile/address/edit')}
                     >

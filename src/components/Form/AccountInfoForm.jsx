@@ -23,7 +23,7 @@ function AccountInfoForm(props){
                     placeholder='Nhập họ'
                 />
             </div>
-            <span id='warning1' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-last-name' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label' htmlFor='recipient-name'>Tên*</label>
                 <input
@@ -33,7 +33,7 @@ function AccountInfoForm(props){
                     placeholder='Nhập tên'
                 />
             </div>
-            <span id='warning2' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-first-name' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label' htmlFor='phone-number'>Giới tính</label>
                 <form className='form-item-radio-form' id='gender'>
@@ -72,7 +72,7 @@ function AccountInfoForm(props){
                 />
                 <span className='form-item-special-change'>Thay đổi</span>
             </div>
-            <span id='warning3' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-email' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>
                 <label className='form-item-label' htmlFor='phone-number'>Số điện thoại*</label>
                 <input
@@ -84,7 +84,7 @@ function AccountInfoForm(props){
                 />
                 <span className='form-item-special-change'>Thay đổi</span>
             </div>
-            <span id='warning4' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning-phone-number' className='warning hidden' >Thông tin này không thể để trống</span>
             {/* <div className='form-item-wrap'>
                 <label className='form-item-label' htmlFor='birthday'>Ngày sinh</label>
                 <input
@@ -100,7 +100,7 @@ function AccountInfoForm(props){
                     style={{cursor: 'pointer', color: '#2F80ED', marginLeft: '10px'}}
                 >Đổi mật khẩu</a>
             </div>
-            <span id='warning' className='warning hidden' >Thông tin này không thể để trống</span>
+            <span id='warning' className='warning hidden' ></span>
         </div>
     );
 }

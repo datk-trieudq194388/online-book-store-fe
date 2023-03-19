@@ -36,7 +36,7 @@
 }
 .titledetail-view-img img{
     height: 380px;
-    width: 380px;
+    max-width: 380px;
     padding: 6px;
 }
 
@@ -48,6 +48,8 @@
 
 .view-sideinfo-name{
     font-weight: 600;
+    font-size: 32px;
+    margin-bottom: 8px;
 }
 
 .sideinfo-addition-wrap, .view-sideinfo-count, .view-sideinfo-policy-wrap{

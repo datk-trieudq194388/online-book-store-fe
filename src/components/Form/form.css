@@ -58,14 +58,14 @@
 
 .form-item-special-change{
     position: relative;
-    right: 60px;
+    right: 62px;
     font-size: 14px;
     color: #2F80ED;
     cursor: pointer;
 }
 
 .form-item-input.form-item-special{
-    padding-right: 64px;
+    padding-right: 66px;
 }
 .form-item-input.date-picker{
     font-weight: 500;
