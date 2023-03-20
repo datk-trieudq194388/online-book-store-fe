@@ -6,6 +6,7 @@ import CategorySide from '../../components/Profile/CategorySide';
 import AccountInfoForm from '../../components/Form/AccountInfoForm';
 import { CheckValidate, RefreshToken } from '../../configs/config';
 import { getAccountInfo, updateAccountInfo } from '../../api/UserAPI';
+import { Gender } from '../../configs/global';
 
 function AccountInfo(){
     const navigate = useNavigate();
@@ -41,11 +42,11 @@ function AccountInfo(){
             const email = document.getElementById('email').value;
             const phoneNumber = document.getElementById('phone-number').value;
 
-            const M = document.getElementById('M').checked;
-            const F = document.getElementById('F').checked;
-            let gender = 'N'
-            if(M) gender = 'M'
-            else if(F) gender = 'F'
+            const M = document.getElementById('gender-' + Gender.MALE).checked;
+            const F = document.getElementById('gender-' + Gender.FEMALE).checked;
+            let gender = Gender.OTHER
+            if(M) gender = Gender.MALE
+            else if(F) gender = Gender.FEMALE
 
             const token = localStorage.getItem('accessToken');
             

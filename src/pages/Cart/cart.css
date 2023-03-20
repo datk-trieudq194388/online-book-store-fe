@@ -76,7 +76,16 @@
 }
 .cart-promotion-title-icon{
     margin-right: 8px;
-  }
+}
+.cart-promotion-content{
+    padding: 8px 16px;
+}
+.temple-promotion{
+    cursor: pointer;
+}
+.temple-promotion:hover{
+    font-weight: 600;
+}
 
 .cart-separate-line{
     height: 1px;

@@ -8,24 +8,17 @@ import
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getTitleBySlug } from '../../api/TitleAPI';
+import { RefreshToken } from '../../configs/config';
+import { addCartItem } from '../../api/CartAPI';
 
 function TitleDetail() {
   const navigate = useNavigate();
   const { slug } = useParams();
   const [title, setTitle] = useState({
-    name: "Loading...",
-    price: 0,
-    authors: [""],
-    translators: [""],
-    publisher: "",
-    pYear: 0,
-    page: 0,
-    size: [0, 0, 0],
-    category: ["Loading...", "Loading..."],
+    name: "Loading...", price: 0, authors: [""], translators: [""], publisher: "", 
+    pYear: 0, page: 0, size: [0, 0, 0], category: ["Loading...", "Loading..."],
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    image: "",
-    slug: "default-slug-4mm5BvC23",
-    quantity: 0
+    image: "", slug: "default-slug-4mm5BvC23", quantity: 0
   });
   const [count, setCount] = useState(0);
 
@@ -51,22 +44,50 @@ function TitleDetail() {
 
   function minusHandle(){
     if(title.quantity != 0){
-      const minus = count--;
+      const minus = count - 1;
       if(minus >= 1) setCount(minus);
     }
   }
 
   function plusHandle(){
     if(title.quantity != 0){
-      const plus = count++;
+      const plus = count + 1;
       if(plus <= title.quantity) setCount(plus);
     }
+  }
+
+  async function handleAddToCart(){
+    const validRefToken = await RefreshToken();
+    if(!validRefToken) navigate('/login');
+
+    const token = localStorage.getItem('accessToken');
+    const res = await addCartItem(token, {titleID: title._id, count: count});
+
+    if(res.status == 400)
+      alert('Vượt quá số lượng cho phép, hãy thử lại!')
+    else if (!res.ok)
+      alert('Gửi yêu cầu thất bại, hãy thử lại!')
+    else alert('Thêm vào giỏ hàng thành công!')
+  }
+
+  async function handleBuyNow(){
+    const validRefToken = await RefreshToken();
+    if(!validRefToken) navigate('/login');
+
+    const token = localStorage.getItem('accessToken');
+    const res = await addCartItem(token, {titleID: title._id, count: count, isChecked: true});
+
+    if(res.status == 400)
+      alert('Vượt quá số lượng cho phép, hãy thử lại!')
+    else if (!res.ok)
+      alert('Gửi yêu cầu thất bại, hãy thử lại!')
+    else navigate('/cart')
   }
 
   return (
     <div className='titledetail-page'>
       <div className='titledetail-breadcrumb'>
-        <span className='titledetail-breadcrumb-item'>TRANG CHỦ</span>
+        <span className='titledetail-breadcrumb-item' onClick={() => navigate('/')}>TRANG CHỦ</span>
         <RightOutlined className='titledetail-breadcrumb-arrow'/>
         <span className='titledetail-breadcrumb-item'>{title.category[0].toUpperCase()}</span>
         <RightOutlined className='titledetail-breadcrumb-arrow'/>
@@ -105,7 +126,7 @@ function TitleDetail() {
                   <div className='sideinfo-count-wrap'>
                     <div className='cart-item-count-wrap'>
                       <a className='cart-item-count-minus' onClick={minusHandle}><MinusOutlined/></a>
-                      <input type='number' className='cart-item-count-show' value={count}/>
+                      <input type='number' className='cart-item-count-show' value={count} readOnly/>
                       <a className='cart-item-count-plus' onClick={plusHandle}><PlusOutlined/></a>
                     </div>
                   </div>
@@ -116,11 +137,11 @@ function TitleDetail() {
               
               <div className='view-sideinfo-action-wrap' >
                 <div className='view-sideinfo-action-wrap' style={{display: (title.quantity == 0 ? 'none' : 'flex'), margin: 0}}>
-                  <div className='view-sideinfo-action-addcart'>
-                    <ShoppingCartOutlined className='view-sideinfo-action-addcart-icon'/>
+                  <div className='view-sideinfo-action-addcart' onClick={handleAddToCart}>
+                    <ShoppingCartOutlined className='view-sideinfo-action-addcart-icon' />
                     Thêm vào giỏ hàng
                   </div>
-                  <div className='view-sideinfo-action-buynow'>
+                  <div className='view-sideinfo-action-buynow' onClick={handleBuyNow}>
                     Mua ngay
                   </div>
                 </div>

@@ -1,14 +1,15 @@
 import './form.css'
 import { useEffect } from 'react';
+import { Gender } from '../../configs/global';
 
 function AccountInfoForm(props){
 
     useEffect(()=>{
-        document.getElementById('last-name').value = props.user.lastname??'';
-        document.getElementById('first-name').value = props.user.firstname??'';
-        document.getElementById('email').value = props.user.email??'';
-        document.getElementById('phone-number').value = props.user.phoneNumber??'';
-        document.getElementById(props.user.gender??'N').checked = true;
+        document.getElementById('last-name').value = props.user.lastname ?? '';
+        document.getElementById('first-name').value = props.user.firstname ?? '';
+        document.getElementById('email').value = props.user.email ?? '';
+        document.getElementById('phone-number').value = props.user.phoneNumber ?? '';
+        document.getElementById('gender-' + (props.user.gender ?? Gender.OTHER)).checked = true;
     })
     
 
@@ -38,26 +39,26 @@ function AccountInfoForm(props){
                 <label className='form-item-label' htmlFor='phone-number'>Giới tính</label>
                 <form className='form-item-radio-form' id='gender'>
                     <input
-                        id='M'
+                        id={'gender-'+Gender.MALE}
                         type='radio'
                         name='gender'
                         className='form-item-input-radio'
                     />
-                    <label htmlFor='M' className='form-item-input-label'>Nam</label>
+                    <label htmlFor={'gender-'+Gender.MALE} className='form-item-input-label'>Nam</label>
                     <input
-                        id='F'
+                        id={'gender-'+Gender.FEMALE}
                         type='radio'
                         name='gender'
                         className='form-item-input-radio'
                     />
-                    <label htmlFor='F' className='form-item-input-label'>Nữ</label>
+                    <label htmlFor={'gender-'+Gender.FEMALE} className='form-item-input-label'>Nữ</label>
                     <input
-                        id='N'
+                        id={'gender-'+Gender.OTHER}
                         type='radio'
                         name='gender'
                         className='form-item-input-radio'
                     />
-                    <label htmlFor='N' className='form-item-input-label'>Khác</label>
+                    <label htmlFor={'gender-'+Gender.OTHER} className='form-item-input-label'>Khác</label>
                 </form>
             </div>
             <span id='warning' className='warning hidden' >Thông tin này không thể để trống</span>
