@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { getAccountInfo } from '../../api/UserAPI';
 import { getCheckedCartItems } from '../../api/CartAPI';
+import { createOrder } from '../../api/OrderAPI';
 
 function Checkout() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function Checkout() {
   const [email, setEmail] = useState('');
   const [checkedTitles, setCheckedTitles] = useState(['']);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [notes, setNotes] = useState('')
 
 
   useEffect(()=>{
@@ -64,9 +66,39 @@ function Checkout() {
     }
   }, [checkedTitles]);
 
-  function handleSubmit(){
-    CheckValidate(document, 'recipient-name', 'email', 'phone-number', 
+  async function handleSubmit(){
+    const validated = CheckValidate(document, 'recipient-name', 'email', 'phone-number', 
       'province-select', 'district-select', 'ward-select', 'detail-address')
+    
+    if(validated){
+      const recipientName = document.getElementById('recipient-name').value;
+      const phoneNumber = document.getElementById('phone-number').value;
+      const provinceIndex = document.getElementById('province-select').value;
+      const districtIndex = document.getElementById('district-select').value;
+      const wardIndex = document.getElementById('ward-select').value;
+      const detailAddr = document.getElementById('detail-address').value;
+
+      const address = [recipientName, phoneNumber, provinceIndex, districtIndex, wardIndex, detailAddr];
+
+      const order = {
+        recipientInfo: address, email, totalPrice, shippingCost, finalPrice: totalPrice + shippingCost, notes, checkedItems: checkedTitles
+      }
+
+      const validRefToken = await RefreshToken();
+      if(!validRefToken) navigate('/login');
+
+      const token = localStorage.getItem('accessToken');
+      
+      const res = await createOrder(token, order);
+
+      if (!res.ok)
+        alert('Gửi yêu cầu thất bại, hãy thử lại!')
+      else {
+        alert('Tạo đơn hàng thành công!')
+        navigate('/')
+      }
+    }
+    
   }
 
 
@@ -88,8 +120,8 @@ function Checkout() {
         <div className='checkout-separate-line'></div>
         <div className='block-content'>
           <div className='block-content-wrap'>
-            <input className="checking-input" type="radio" id="shipping" value="shipping" checked/>
-            <label for="shipping">
+            <input className="checking-input" type="radio" id="shipping" value="shipping" checked readOnly/>
+            <label htmlFor="shipping">
               Giao hàng tiêu chuẩn: <span className='shipping-cost'> {new Intl.NumberFormat("de-DE").format(shippingCost)}đ</span>
             </label>
           </div>
@@ -102,8 +134,8 @@ function Checkout() {
         <div className='checkout-separate-line'></div>
         <div className='block-content'>
           <div className='block-content-wrap'>
-            <input className="checking-input" type="radio" id="payment" value="payment" checked/>
-            <label for="payment">Thanh toán bằng tiền mặt khi nhận hàng</label>
+            <input className="checking-input" type="radio" id="payment" value="payment" checked readOnly/>
+            <label htmlFor="payment">Thanh toán bằng tiền mặt khi nhận hàng</label>
           </div>
         </div>
       </div>
@@ -114,6 +146,26 @@ function Checkout() {
         <div className='checkout-separate-line'></div>
         <div className='block-content'>
           <span>Temple</span>
+        </div>
+      </div>
+      <div className='checkout-block notes'>
+        <div className='block-title'>
+          <span className='block-notes-title-name'>GHI CHÚ</span>
+        </div>
+        <div className='checkout-separate-line'></div>
+        <div className='block-content'>
+          <div className='form-item-wrap'>
+            <label className='form-item-label' htmlFor='recipient-name'>Lưu ý cho cửa hàng</label>
+            <input
+                id='notes'
+                type='text'
+                className='form-item-input'
+                placeholder='Thêm ghi chú (Tùy chọn)'
+                style={{fontWeight: '400'}}
+                value={notes}
+                onChange={(e)=>setNotes(e.target.value)}
+            />
+          </div>
         </div>
       </div>
       <div className='checkout-block order'>

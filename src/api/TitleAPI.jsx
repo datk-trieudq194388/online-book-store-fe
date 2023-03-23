@@ -78,29 +78,6 @@ export const getUserSearchingTitle = async (queryOptions = {}, viewOptions = {})
                 }
             }
         }
-
-        // if(queryOptions.category[0] == CategoryList[0].slug){
-        //     const catList = CategoryList[0].categories;
-        //     for(let i = 0; i< catList.length; i++){
-        //         if(queryOptions.category[1] == catList[i].slug){
-        //             category = [0, catList[i].code]
-        //             break;
-        //         } 
-        //         else if(i + 1 == catList.length)
-        //             category = [0]
-        //     }
-        // }
-        // else if(queryOptions.category[0] == CategoryList[1].slug){
-        //     const catList = CategoryList[1].categories;
-        //     for(let i = 0; i< catList.length; i++){
-        //         if(queryOptions.category[1] == catList[i].slug){
-        //             category = [1, catList[i].code]
-        //             break;
-        //         } 
-        //         else if(i + 1 == catList.length)
-        //             category = [1]
-        //     }
-        // }
     }
     //categoryOptions could be: [0] , [1], [0, 0], [0, 1],...,[1, 0], [1, 1],...
 
