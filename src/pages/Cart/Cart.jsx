@@ -113,7 +113,7 @@ function Cart() {
             <div style={{display:(cartItems?.length == 0 ? 'flex' : 'none'),
                 padding: '8px', color: '#7a7e7f', justifyContent:'center'}}
             >
-              Chưa có sản phẩm nào
+              Chưa có sản phẩm nào.<a href='/' style={{marginLeft: '8px'}}>Mua ngay</a>
             </div>
             { 
               cartItems?.map((item, i)=>{

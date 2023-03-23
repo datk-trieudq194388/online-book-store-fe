@@ -84,15 +84,15 @@
     align-items: end;
     justify-content: end;
 }
-.end-checkout-items-price, .end-checkout-shipping-price, .end-checkout-total-price{
+.end-checkout-total-price, .end-checkout-shipping-price, .end-checkout-final-price{
     display: flex;
     padding-bottom: 4px;
 }
-.end-checkout-info #total-price-title{
+.end-checkout-info #final-price-title{
     font-size: 18px;
     font-weight: 600;
 }
-.end-checkout-info #total-price-number{
+.end-checkout-info #final-price-number{
     font-size: 18px;
     font-weight: 700;
     color: #f39801;
@@ -120,6 +120,8 @@
     background-color: #c10000;
 }
 .end-checkout-handle .end-checkout-gobackcart{
+    display: flex;
+    align-items: center;
     font-weight: 600;
     cursor: pointer;
 }

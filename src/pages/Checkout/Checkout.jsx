@@ -1,10 +1,68 @@
 import './checkout.css';
-import { cartItems , CheckValidate} from '../../configs/config';
+import { cartItems , CheckValidate, RefreshToken} from '../../configs/config';
 import AddressForm from '../../components/Form/AddressForm';
 import {CaretLeftFilled} from '@ant-design/icons'
 import CheckoutTitleItem from '../../components/Title/CheckoutTitleItem';
+import { useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
+import { getAccountInfo } from '../../api/UserAPI';
+import { getCheckedCartItems } from '../../api/CartAPI';
 
 function Checkout() {
+  const navigate = useNavigate();
+  const shippingCost = 20000;
+  const [addr, setAddr] = useState(['', '', '', '', '', '']);
+  const [email, setEmail] = useState('');
+  const [checkedTitles, setCheckedTitles] = useState(['']);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+
+  useEffect(()=>{
+      async function fetchData() {
+          const validRefToken = await RefreshToken();
+          if(!validRefToken) navigate('/login');
+
+          const token = localStorage.getItem('accessToken');
+          
+          const res = await getAccountInfo(token, ['address', 'email']);
+  
+          if (!res.ok)
+              alert('Gửi yêu cầu thất bại, hãy thử lại!')
+          else {
+              setAddr(res.data.address);
+              setEmail(res.data.email);
+          }
+      }
+
+      async function fetchTitlesData() {
+        const validRefToken = await RefreshToken();
+        if(!validRefToken) navigate('/login');
+    
+        const token = localStorage.getItem('accessToken');
+        
+        const res = await getCheckedCartItems(token);
+    
+        if (!res.ok)
+            alert('Gửi yêu cầu thất bại, hãy thử lại!')
+        else setCheckedTitles(res.data);
+    
+      }
+  
+      fetchData();
+      fetchTitlesData();
+        
+  }, []);
+
+  useEffect(()=>{
+    if(checkedTitles.length == 0) navigate('/cart');
+    else if(checkedTitles[0] != ''){
+      let tPrice = 0;
+      checkedTitles.map((item) => {
+        tPrice += (item.title?.price * item.count)
+      })
+      setTotalPrice(tPrice);
+    }
+  }, [checkedTitles]);
 
   function handleSubmit(){
     CheckValidate(document, 'recipient-name', 'email', 'phone-number', 
@@ -20,7 +78,7 @@ function Checkout() {
         </div>
         <div className='checkout-separate-line'></div>
         <div className='block-content address'>
-          <AddressForm/>
+          <AddressForm addr={addr} email={email} />
         </div>
       </div>
       <div className='checkout-block shipping'>
@@ -31,7 +89,9 @@ function Checkout() {
         <div className='block-content'>
           <div className='block-content-wrap'>
             <input className="checking-input" type="radio" id="shipping" value="shipping" checked/>
-            <label for="shipping">Giao hàng tiêu chuẩn: <span className='shipping-cost'> 20.000đ</span></label>
+            <label for="shipping">
+              Giao hàng tiêu chuẩn: <span className='shipping-cost'> {new Intl.NumberFormat("de-DE").format(shippingCost)}đ</span>
+            </label>
           </div>
         </div>
       </div>
@@ -63,38 +123,44 @@ function Checkout() {
         <div className='checkout-separate-line'></div>
         <div className='block-content'>
         {
-              cartItems.map((item, i)=>{
-                  return(
-                    <div>
-                      <CheckoutTitleItem key={i} img={item.img} name={item.name} price={item.price} count={item.count}/>
-                      {i+1 === cartItems.length? <></> : <div className='checkout-separate-line item'></div>}
-                    </div>
-                      
-                  )
-              })
-            }
+          checkedTitles?.map((item, i)=>{
+              return(
+                <div key={i}>
+                  <CheckoutTitleItem item={item} />
+                  {i+1 === checkedTitles.length? <></> : <div className='checkout-separate-line item'></div>}
+                </div>
+                  
+              )
+          })
+        }
         </div>
       </div>
 
       <div className='end-checkout'>
         <div className='end-checkout-info'>
-          <div className='end-checkout-items-price'>
+          <div className='end-checkout-total-price'>
             <div>Thành tiền</div>
-            <div className='price'>{100000} đ</div>
+            <div className='price'>
+              {new Intl.NumberFormat("de-DE").format(totalPrice)} đ
+            </div>
           </div>
           <div className='end-checkout-shipping-price'>
             <div>Phí vận chuyển</div>
-            <div className='price'>{20000} đ</div>
+            <div className='price'>
+              {new Intl.NumberFormat("de-DE").format(shippingCost)} đ
+            </div>
           </div>
-          <div className='end-checkout-total-price'>
-            <div id='total-price-title'>Tổng số tiền</div>
-            <div id='total-price-number' className='price'>{2000000} đ</div>
+          <div className='end-checkout-final-price'>
+            <div id='final-price-title'>Tổng số tiền</div>
+            <div id='final-price-number' className='price'>
+              {new Intl.NumberFormat("de-DE").format(totalPrice + shippingCost)} đ
+            </div>
           </div>
 
         </div>
         <div className='checkout-separate-line end'></div>
         <div className='end-checkout-handle'>
-          <div className='end-checkout-gobackcart'>
+          <div className='end-checkout-gobackcart' onClick={() => navigate('/cart')}>
             <CaretLeftFilled className='end-checkout-gbc-icon'/>
             <span className='cart-checkout-gbc-title'>Quay về giỏ hàng</span>
           </div>

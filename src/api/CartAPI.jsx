@@ -18,6 +18,24 @@ export const getAllCartItems = async (token) => {
 
 }
 
+export const getCheckedCartItems = async (token) => {
+ 
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+    const response = await fetch(`${SERVER_ADDR}/cart?isChecked=true`, options);
+    
+    const data = await response.json();
+    console.log(data)
+
+    return {data: data, status: response.status, ok: response.ok};
+
+}
+
 export const checkAllCartItems = async (token, checked) => {
     
     const options = {

@@ -70,21 +70,21 @@
   color: #7a7e7f;
 }
 
-.home-box-title-trending {
+.home-box-title-trending, .home-box-title-category{
   font-size: 16px;
   margin-left: 16px;
 }
 
-.home-box-title-trending-order {
+.home-box-title-trending-order, .home-box-title-category-order {
   margin: 0px 10px;
   cursor: pointer;
 }
 
-.home-box-title-trending-order:hover {
+.home-box-title-trending-order:hover, .home-box-title-category-order:hover{
   color: #F7931E;
 }
 
-.home-box-title-trending-order.active{
+.home-box-title-trending-order.active, .home-box-title-category-order.active{
   color: #F7931E;
   font-weight: bold;
 }

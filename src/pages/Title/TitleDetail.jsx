@@ -8,7 +8,7 @@ import
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getTitleBySlug } from '../../api/TitleAPI';
-import { RefreshToken } from '../../configs/config';
+import { CategoryList, RefreshToken } from '../../configs/config';
 import { addCartItem } from '../../api/CartAPI';
 
 function TitleDetail() {
@@ -41,6 +41,17 @@ function TitleDetail() {
   }, []);
 
   const formattedPrice = new Intl.NumberFormat("de-DE").format(title.price);
+
+  function getCategoryGroup(){
+    const code = title.category[0];
+    return CategoryList[code];
+  }
+
+  function getCategory(){
+    const code = title.category[0];
+    const subCode = title.category[1];
+    return CategoryList[code]?.categories[subCode];
+  }
 
   function minusHandle(){
     if(title.quantity != 0){
@@ -89,9 +100,17 @@ function TitleDetail() {
       <div className='titledetail-breadcrumb'>
         <span className='titledetail-breadcrumb-item' onClick={() => navigate('/')}>TRANG CHỦ</span>
         <RightOutlined className='titledetail-breadcrumb-arrow'/>
-        <span className='titledetail-breadcrumb-item'>{title.category[0].toUpperCase()}</span>
+        <span className='titledetail-breadcrumb-item' 
+          onClick={() => navigate(`/${getCategoryGroup()?.slug}`)}
+        >
+          {getCategoryGroup()?.name.toUpperCase() ?? 'Loading...'}
+        </span>
         <RightOutlined className='titledetail-breadcrumb-arrow'/>
-        <span className='titledetail-breadcrumb-item'>{title.category[1].toUpperCase()}</span>
+        <span className='titledetail-breadcrumb-item' 
+          onClick={() => navigate(`/${getCategoryGroup()?.slug}?cat=${getCategory()?.slug}`)}
+        >
+          {getCategory()?.name.toUpperCase() ?? 'Loading...'}
+        </span>
       </div>
       <div className='titledetail-view'>
           <div className='titledetail-view-img'>

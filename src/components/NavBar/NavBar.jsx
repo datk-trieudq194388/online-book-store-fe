@@ -12,9 +12,11 @@ function NavBar() {
 
   const handleSearch = () => {
     let search = document.querySelector('.input-search').value;
-    if (search) {
-      navigate(`/search=${search}`);
-    }
+    if (search)
+      navigate(`/catalog-search?q=${search}`);
+    else 
+      navigate('/catalog-search');
+    
   }
 
   const handleEnter = (e) => {

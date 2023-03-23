@@ -5,7 +5,7 @@ import {
 } from '@ant-design/icons'
 import './home.css'
 import TitleItem from '../../components/Title/TitleItem';
-import { homeCategoriesList, exampleTitles } from '../../configs/config';
+import { CategoryList } from '../../configs/config';
 import { ViewType } from '../../configs/global';
 import { getUserTitle } from '../../api/TitleAPI';
 import { useNavigate } from 'react-router-dom';
@@ -13,18 +13,19 @@ import { useNavigate } from 'react-router-dom';
 function Home(props) {
   const navigate = useNavigate();
 
-  const [selected, setSelected] = useState(ViewType.NEWEST);
+  const [viewSelected, setViewSelected] = useState(ViewType.NEWEST);
+  const [categorySelected, setCategorySelected] = useState(0);
   const [titles, setTitles] = useState([])
 
   useEffect(() => {
     async function fetchData() {
      
-      const res = await getUserTitle(selected);
+      const res = await getUserTitle(viewSelected);
     
       if (!res.ok)
         alert('Gửi yêu cầu thất bại, hãy thử lại!')
       else setTitles(res.data)
-  }
+    }
 
   fetchData();
 
@@ -39,7 +40,12 @@ function Home(props) {
     else setTitles(res.data)
     
 
-    setSelected(type);
+    setViewSelected(type);
+  }
+
+  async function selectTypeOfCategory(type){
+
+    setCategorySelected(type);
   }
 
   return (
@@ -48,14 +54,28 @@ function Home(props) {
         <div className='home-box-title'>
           <AppstoreOutlined className='home-box-title-icon'/>
           <span className='home-box-title-name'>Danh mục sản phẩm</span>
+          <div className='home-box-title-category'>
+            <span 
+              className={'home-box-title-category-order'+(categorySelected === 0 ? ' active' : '')} 
+              onClick={()=>selectTypeOfCategory(0)}
+            >
+              Sách trong nước
+            </span>
+            <span 
+              className={'home-box-title-category-order'+(categorySelected === 1 ? ' active' : '')} 
+              onClick={()=>selectTypeOfCategory(1)}
+            >
+              Sách nước ngoài
+            </span>
+          </div>
         </div>
         <div className='home-separate-line'></div>
         <div className='home-categories-content'>
           {
-            homeCategoriesList.map((item, i) => {
+            CategoryList[categorySelected].categories.map((item, i) => {
               return(
-                <a key={i} className='home-categories-content-item' href='/'>
-                  <img src={item.img} alt={item.name}/>
+                <a key={i} className='home-categories-content-item' href={item.link}>
+                  <img src={item.image} alt={item.name}/>
                   <span>{item.name}</span>
                 </a>
               )
@@ -70,19 +90,19 @@ function Home(props) {
           <span className='home-box-title-name'>Xu hướng mua sắm</span>
           <div className='home-box-title-trending'>
             <span 
-              className={'home-box-title-trending-order'+(selected === ViewType.NEWEST ? ' active' : '')} 
+              className={'home-box-title-trending-order'+(viewSelected === ViewType.NEWEST ? ' active' : '')} 
               onClick={()=>selectTypeOfTrending(ViewType.NEWEST)}
             >
               Mới nhất
             </span>
             <span 
-              className={'home-box-title-trending-order'+(selected === ViewType.BEST_SELLERS ? ' active' : '')} 
+              className={'home-box-title-trending-order'+(viewSelected === ViewType.BEST_SELLERS ? ' active' : '')} 
               onClick={()=>selectTypeOfTrending(ViewType.BEST_SELLERS)}
             >
               Bán chạy nhất
             </span>
             <span 
-              className={'home-box-title-trending-order'+(selected === ViewType.MOST_VIEWS ? ' active' : '')} 
+              className={'home-box-title-trending-order'+(viewSelected === ViewType.MOST_VIEWS ? ' active' : '')} 
               onClick={()=>selectTypeOfTrending(ViewType.MOST_VIEWS)}
             >
               Nhiều lượt xem nhất

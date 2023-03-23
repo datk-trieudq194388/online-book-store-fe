@@ -10,6 +10,7 @@ import ListOrder from '../pages/Profile/ListOrder'
 import Address from '../pages/Profile/Address'
 import AddressEdit from '../pages/Profile/AddressEdit'
 import AccountInfo from '../pages/Profile/AccountInfo'
+import { CategoryList } from '../configs/config'
 
 export const publicRoutes = [
   {
@@ -30,18 +31,18 @@ export const publicRoutes = [
     element: <Home />,
     exact: true
   },
-  {
-    key: "homeChildren",
-    path: '/:type',
-    element: <Home />,
-    exact: true
-  },
-  {
-    key: "homeChildren2",
-    path: '/:type=:param',
-    element: <Home />,
-    exact: true
-  },
+  // {
+  //   key: "homeChildren",
+  //   path: '/:type',
+  //   element: <Home />,
+  //   exact: true
+  // },
+  // {
+  //   key: "homeChildren2",
+  //   path: '/:type=:param',
+  //   element: <Home />,
+  //   exact: true
+  // },
   {
     key: 'profile',
     path: '/profile/overral',
@@ -72,24 +73,6 @@ export const publicRoutes = [
     element: <AccountInfo/>,
     exact: true
   },
-  // {
-  //   key: 'Cart',
-  //   path: '/cart',
-  //   element: <Cart />,
-  //   exact: true
-  // },
-  // {
-  //   key: 'History',
-  //   path: '/History',
-  //   element: <History />,
-  //   exact: true
-  // },
-  // {
-  //   key: 'BookTitle',
-  //   path: '/BookTitle',
-  //   element: <BookTitle />,
-  //   exact: true
-  // },
   {
     key: 'Title',
     path: '/title/:slug',
@@ -97,9 +80,21 @@ export const publicRoutes = [
     exact: true
   },
   {
-    key: 'Searching',
-    path: '/catalog-search/result',
-    element: <CatalogSearch />,
+    key: 'Searching1',
+    path: '/catalog-search',
+    element: <CatalogSearch type='catalog-search'/>,
+    exact: true
+  },
+  {
+    key: 'Searching2',
+    path: `/${CategoryList[0].slug}`,
+    element: <CatalogSearch type={CategoryList[0].slug}/>,
+    exact: true
+  },
+  {
+    key: 'Searching3',
+    path: `/${CategoryList[1].slug}`,
+    element: <CatalogSearch type={CategoryList[1].slug}/>,
     exact: true
   }
 ]
