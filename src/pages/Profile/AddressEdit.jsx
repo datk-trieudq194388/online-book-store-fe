@@ -7,16 +7,21 @@ import AddressForm from '../../components/Form/AddressForm';
 import {DoubleLeftOutlined} from '@ant-design/icons'
 import { CheckValidate, RefreshToken } from '../../configs/config';
 import { getAccountInfo, updateAccountInfo } from '../../api/UserAPI';
+import DeleteAddressPopup from '../../components/Popup/DeleteAddress';
 
 function AddressEdit(){
     const navigate = useNavigate();
     const [addr, setAddr] = useState(['', '', '', '', '', '']);
     const [email, setEmail] = useState('');
+    const [deletingState, setDeletingState] = useState(false);
 
     useEffect(()=>{
         async function fetchData() {
             const validRefToken = await RefreshToken();
-            if(!validRefToken) navigate('/login');
+            if(!validRefToken){
+              navigate('/login');
+              return;
+            } 
 
             const token = localStorage.getItem('accessToken');
             
@@ -40,7 +45,10 @@ function AddressEdit(){
 
         if (validated) {
             const validRefToken = await RefreshToken();
-            if(!validRefToken) navigate('/login');
+            if(!validRefToken){
+              navigate('/login');
+              return;
+            } 
 
             const recipientName = document.getElementById('recipient-name').value;
             const phoneNumber = document.getElementById('phone-number').value;
@@ -59,15 +67,38 @@ function AddressEdit(){
                 alert('Gửi yêu cầu thất bại, hãy thử lại!')
             else{
                 alert('Cập nhật địa chỉ thành công!')
-                setAddr(res.data.address);
+                navigate('/profile/address')
+                window.scrollTo(0, 0);
             }
         }
-      
-        
-      }
+    }
+
+    async function handleDeletingResult(res){
+        setDeletingState(false);
+        if(res){
+            const validRefToken = await RefreshToken();
+            if(!validRefToken){
+              navigate('/login');
+              return;
+            } 
+
+            const token = localStorage.getItem('accessToken');
+            
+            const res = await updateAccountInfo(token, {address: []});
+    
+            if (!res.ok)
+                alert('Gửi yêu cầu thất bại, hãy thử lại!')
+            else{
+                alert('Cập nhật địa chỉ thành công!')
+                navigate('/profile/address')
+                window.scrollTo(0, 0);
+            }
+        }
+    }
 
     return(
         <div className='profile-page'>
+            <DeleteAddressPopup state={deletingState} result={handleDeletingResult}/>
             <div className='profile-left-side'>
                 <CategorySide index='3'/>
             </div>
@@ -83,6 +114,7 @@ function AddressEdit(){
                         <button className='profile-update-button' onClick={handleUpdate}>Cập nhật địa chỉ</button>
                         <a className='form-item-delete-addr'
                             style={{cursor: 'pointer', color: '#2F80ED', marginLeft: '20px'}}
+                            onClick={() => setDeletingState(true)}
                         >Xóa địa chỉ mặc định</a>
                         <span className='address-edit-go-back'><DoubleLeftOutlined className='address-edit-go-back-icon'/>Quay lại</span>
                     </div>

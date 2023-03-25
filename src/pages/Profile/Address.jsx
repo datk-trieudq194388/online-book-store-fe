@@ -14,7 +14,10 @@ function Address(){
     useEffect(()=>{
         async function fetchData() {
             const validRefToken = await RefreshToken();
-            if(!validRefToken) navigate('/login');
+            if(!validRefToken){
+              navigate('/login');
+              return;
+            } 
 
             const token = localStorage.getItem('accessToken');
             
@@ -37,6 +40,11 @@ function Address(){
           
     }, []);
 
+    function goToEditAddress(){
+        navigate('/profile/address/edit');
+        window.scrollTo(0, 0);
+    }
+
     return(
         <div className='profile-page'>
             <div className='profile-left-side'>
@@ -56,7 +64,7 @@ function Address(){
                     <p className={'p' + (addr.length == 0 ? ' ma-hidden' : '')}>{addr[4] + ', ' + addr[3] + ', ' + addr[2]}</p>
                     <p className={'p' + (addr.length == 0 ? ' ma-hidden' : '')}>Tel: {addr[1]}</p>
                     <span className='my-address-update-address'
-                        onClick={()=>navigate('/profile/address/edit')}
+                        onClick={goToEditAddress}
                     >
                         Cập nhật địa chỉ mặc định</span>
                 </div>

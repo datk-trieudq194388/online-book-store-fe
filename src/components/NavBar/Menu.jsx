@@ -105,9 +105,15 @@ function Menu() {
     }
     if(response.ok){
       navigate('/');
+      alert('Đăng xuất thành công!');
       window.location.reload();
     }
       
+  }
+
+  function goToLink(e) {
+    navigate(e);
+    window.scrollTo(0, 0);
   }
 
   return (
@@ -125,7 +131,7 @@ function Menu() {
         else 
           return (
             <div key={i} id={i} >
-              <div className={e.className} onClick={()=>navigate(e.link)}>
+              <div className={e.className} onClick={()=>goToLink(e.link)}>
                 <span className='icon'>{e.icon}</span>
                 <span className='text'>{e.text}</span>
               </div>

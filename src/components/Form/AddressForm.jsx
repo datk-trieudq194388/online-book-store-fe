@@ -57,6 +57,11 @@ function AddressForm(props){
         setW(e.target.value)
     }
 
+    function goToEditAccount(){
+        navigate('/profile/account-info')
+        window.scrollTo(0, 0);
+    }
+
 
     return(
         <div className='address-form'>
@@ -82,7 +87,7 @@ function AddressForm(props){
                     disabled
                     value={email}
                 />
-                <span className='form-item-special-change' onClick={()=> navigate('/profile/account-info')}>Cập nhật</span>
+                <span className='form-item-special-change' onClick={goToEditAccount}>Cập nhật</span>
             </div>
             <span id='warning-email' className='warning hidden' >Thông tin này không thể để trống</span>
             <div className='form-item-wrap'>

@@ -46,6 +46,11 @@ function Login() {
   //   }
   // }
 
+  function goToRegister(){
+    navigate('/register');
+    window.scrollTo(0, 0);
+  }
+
   return (
     <div className='background'>
       <div></div>
@@ -65,7 +70,7 @@ function Login() {
         />
         <p id='warning-password' className='warning hidden'>Cần nhập mật khẩu</p>
         <button className='button-form' onClick={handleLogin}>Đăng nhập</button>
-        <a className='register-tag' href='' onClick={() => navigate('/register')}>Tạo tài khoản</a>
+        <a className='register-tag' href='' onClick={goToRegister}>Tạo tài khoản</a>
       </div>
       <div></div>
     </div>

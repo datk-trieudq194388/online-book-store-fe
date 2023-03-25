@@ -5,7 +5,10 @@ function CategorySide(props) {
     const navigate = useNavigate();
     const i = props?.index ? props.index : '';
 
-
+    function goTo(e) {
+        navigate(e);
+        window.scrollTo(0, 0);
+    }
     return (
         <div className='side-wrap'>
             <div className='profile-category-label'>
@@ -13,25 +16,25 @@ function CategorySide(props) {
             </div>   
             <div className='titledetail-separate-line'></div> 
             <div className={'profile-category-item' + (i == 1 ? ' active' : '')} 
-                onClick={()=>navigate('/profile/overral')}
+                onClick={()=>goTo('/profile/overral')}
             >
                 <span>Thông tin chung</span>
             </div>
             <div className='titledetail-separate-line'></div> 
             <div className={'profile-category-item' + (i == 2 ? ' active' : '')}
-                onClick={()=>navigate('/profile/account-info')}
+                onClick={()=>goTo('/profile/account-info')}
             >
                 <span>Cập nhật tài khoản</span>
             </div>
             <div className='titledetail-separate-line'></div> 
             <div className={'profile-category-item' + (i == 3 ? ' active' : '')}
-                onClick={()=>navigate('/profile/address')}
+                onClick={()=>goTo('/profile/address')}
             >
                 <span>Sổ địa chỉ</span>
             </div>
             <div className='titledetail-separate-line'></div> 
             <div className={'profile-category-item' + (i == 4 ? ' active' : '')}
-                onClick={()=>navigate('/profile/orders')}
+                onClick={()=>goTo('/profile/orders/all')}
             >
                 <span>Đơn hàng của tôi</span>
             </div>

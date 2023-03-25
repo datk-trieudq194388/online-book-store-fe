@@ -69,7 +69,10 @@ function TitleDetail() {
 
   async function handleAddToCart(){
     const validRefToken = await RefreshToken();
-    if(!validRefToken) navigate('/login');
+    if(!validRefToken){
+      navigate('/login');
+      return;
+    } 
 
     const token = localStorage.getItem('accessToken');
     const res = await addCartItem(token, {titleID: title._id, count: count});
@@ -83,7 +86,10 @@ function TitleDetail() {
 
   async function handleBuyNow(){
     const validRefToken = await RefreshToken();
-    if(!validRefToken) navigate('/login');
+    if(!validRefToken){
+      navigate('/login');
+      return;
+    } 
 
     const token = localStorage.getItem('accessToken');
     const res = await addCartItem(token, {titleID: title._id, count: count, isChecked: true});
@@ -92,7 +98,10 @@ function TitleDetail() {
       alert('Vượt quá số lượng cho phép, hãy thử lại!')
     else if (!res.ok)
       alert('Gửi yêu cầu thất bại, hãy thử lại!')
-    else navigate('/cart')
+    else{
+      navigate('/cart');
+      window.scrollTo(0, 0);
+    } 
   }
 
   return (

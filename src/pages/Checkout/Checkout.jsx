@@ -1,5 +1,5 @@
 import './checkout.css';
-import { cartItems , CheckValidate, RefreshToken} from '../../configs/config';
+import { CheckValidate, RefreshToken} from '../../configs/config';
 import AddressForm from '../../components/Form/AddressForm';
 import {CaretLeftFilled} from '@ant-design/icons'
 import CheckoutTitleItem from '../../components/Title/CheckoutTitleItem';
@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { getAccountInfo } from '../../api/UserAPI';
 import { getCheckedCartItems } from '../../api/CartAPI';
 import { createOrder } from '../../api/OrderAPI';
+import OrderConfirmPopup from '../../components/Popup/OrderConfirm';
 
 function Checkout() {
   const navigate = useNavigate();
@@ -17,12 +18,16 @@ function Checkout() {
   const [checkedTitles, setCheckedTitles] = useState(['']);
   const [totalPrice, setTotalPrice] = useState(0);
   const [notes, setNotes] = useState('')
+  const [confirmState, setConfirmState] = useState(false);
 
 
   useEffect(()=>{
       async function fetchData() {
           const validRefToken = await RefreshToken();
-          if(!validRefToken) navigate('/login');
+          if(!validRefToken){
+            navigate('/login');
+            return;
+          } 
 
           const token = localStorage.getItem('accessToken');
           
@@ -38,7 +43,10 @@ function Checkout() {
 
       async function fetchTitlesData() {
         const validRefToken = await RefreshToken();
-        if(!validRefToken) navigate('/login');
+        if(!validRefToken){
+          navigate('/login');
+          return;
+        } 
     
         const token = localStorage.getItem('accessToken');
         
@@ -71,6 +79,12 @@ function Checkout() {
       'province-select', 'district-select', 'ward-select', 'detail-address')
     
     if(validated){
+      const validRefToken = await RefreshToken();
+      if(!validRefToken){
+        navigate('/login');
+        return;
+      } 
+      
       const recipientName = document.getElementById('recipient-name').value;
       const phoneNumber = document.getElementById('phone-number').value;
       const provinceIndex = document.getElementById('province-select').value;
@@ -84,9 +98,6 @@ function Checkout() {
         recipientInfo: address, email, totalPrice, shippingCost, finalPrice: totalPrice + shippingCost, notes, checkedItems: checkedTitles
       }
 
-      const validRefToken = await RefreshToken();
-      if(!validRefToken) navigate('/login');
-
       const token = localStorage.getItem('accessToken');
       
       const res = await createOrder(token, order);
@@ -95,15 +106,24 @@ function Checkout() {
         alert('Gửi yêu cầu thất bại, hãy thử lại!')
       else {
         alert('Tạo đơn hàng thành công!')
-        navigate('/')
+        navigate('/profile/orders/pending');
+        window.scrollTo(0, 0);
       }
     }
-    
+    else window.scrollTo(0, 0)
+  }
+
+  function handlePayment(result){
+    setConfirmState(false);
+    if(result){
+      handleSubmit()
+    }
   }
 
 
   return (
     <div className='checkout-page'>
+      <OrderConfirmPopup state={confirmState} result={handlePayment}/>
       <div className='checkout-block address'>
         <div className='block-title'>
           <span className='block-address-title-name'>ĐỊA CHỈ GIAO HÀNG</span>
@@ -217,7 +237,7 @@ function Checkout() {
             <span className='cart-checkout-gbc-title'>Quay về giỏ hàng</span>
           </div>
 
-          <div  className='end-checkout-submit' onClick={handleSubmit}>
+          <div  className='end-checkout-submit' onClick={() => setConfirmState(true)}>
             <span>Xác nhận thanh toán</span>
           </div> 
         </div>

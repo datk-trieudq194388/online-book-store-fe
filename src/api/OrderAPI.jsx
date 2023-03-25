@@ -1,4 +1,5 @@
 import { SERVER_ADDR } from "../configs/config";
+import { OrderStatus } from "../configs/global";
 
 
 export const createOrder = async (token, order) => {
@@ -26,6 +27,62 @@ export const createOrder = async (token, order) => {
         body: JSON.stringify(order)
     };
     const response = await fetch(`${SERVER_ADDR}/order/create`, options);
+    
+    const data = await response.json();
+    console.log(data)
+
+    return {data: data, status: response.status, ok: response.ok};
+
+}
+
+export const getMyOrders = async (token, type = OrderStatus.ALL, limit = null) => {
+    let query = `?type=${type}`;
+    if(limit) query = query + `&limit=${limit}`;
+    
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+    const response = await fetch(`${SERVER_ADDR}/order/my-orders` + query, options);
+    
+    const data = await response.json();
+    console.log(data)
+
+    return {data: data, status: response.status, ok: response.ok};
+
+}
+
+export const getNumberOfOrderTypes = async (token) => {
+    
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+    const response = await fetch(`${SERVER_ADDR}/order/num-of-types`, options);
+    
+    const data = await response.json();
+    console.log(data)
+
+    return {data: data, status: response.status, ok: response.ok};
+
+}
+
+export const getOrderDetail = async (token, id) => {
+    
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+    const response = await fetch(`${SERVER_ADDR}/order/my-orders/detail/${id}`, options);
     
     const data = await response.json();
     console.log(data)

@@ -113,3 +113,14 @@ export const getTitleBySlug = async (slug) => {
     return {data: data, status: response.status, ok: response.ok};
 
 }
+
+export const getSlugByID = async (id) => {
+
+    const response = await fetch(`${SERVER_ADDR}/title/slug/${id}`);
+    
+    const data = await response.json();
+    console.log(data)
+
+    return {data: data, status: response.status, ok: response.ok};
+
+}

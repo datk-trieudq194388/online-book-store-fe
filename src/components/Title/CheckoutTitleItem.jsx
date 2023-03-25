@@ -1,7 +1,7 @@
 import './checkoutTitleItem.css'
 
 function CheckoutTitleItem(props) {
-  // console.log(props.item.title)
+
   const [name, price, count] = [props.item.title?.name, props.item.title?.price, props.item?.count];
   const trimmedName = name?.length > 36 ? name.split(0, 36)+'...' : name;
 

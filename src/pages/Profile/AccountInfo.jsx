@@ -15,7 +15,10 @@ function AccountInfo(){
     useEffect(()=>{
         async function fetchData() {
             const validRefToken = await RefreshToken();
-            if(!validRefToken) navigate('/login');
+            if(!validRefToken){
+              navigate('/login');
+              return;
+            } 
 
             const token = localStorage.getItem('accessToken');
             
@@ -35,12 +38,13 @@ function AccountInfo(){
       
         if (validated) {
             const validRefToken = await RefreshToken();
-            if(!validRefToken) navigate('/login');
+            if(!validRefToken){
+              navigate('/login');
+              return;
+            } 
 
             const lastname = document.getElementById('last-name').value;
             const firstname = document.getElementById('first-name').value;
-            const email = document.getElementById('email').value;
-            const phoneNumber = document.getElementById('phone-number').value;
 
             const M = document.getElementById('gender-' + Gender.MALE).checked;
             const F = document.getElementById('gender-' + Gender.FEMALE).checked;
@@ -50,7 +54,7 @@ function AccountInfo(){
 
             const token = localStorage.getItem('accessToken');
             
-            const res = await updateAccountInfo(token, {lastname, firstname, email, phoneNumber, gender});
+            const res = await updateAccountInfo(token, {lastname, firstname, gender});
     
             if (!res.ok)
                 alert('Gửi yêu cầu thất bại, hãy thử lại!')

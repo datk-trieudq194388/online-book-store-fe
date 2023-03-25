@@ -54,6 +54,7 @@ function Register() {
         localStorage.setItem('firstname', res.data.user.firstname ? res.data.user.firstname : '');
         Cookies.set('refreshToken', res.data.refreshToken, { expires: 30}); 
         navigate('/profile/account-info');
+        window.scrollTo(0, 0);
       }
     }
   }

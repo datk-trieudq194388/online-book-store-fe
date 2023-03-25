@@ -6,7 +6,7 @@ export const Gender = {MALE: 0, FEMALE: 1, OTHER: -1}
 export const BookStatus = { SOLD: -1, PENDING: 0, AVAILABLE: 1 }
 
 export const OrderStatus = {
-    PENDING: 0, PROCESSING: 1, COMPLETED: 2, CANCLED: -1 
+    PENDING: 0, PROCESSING: 1, COMPLETED: 2, CANCELED: -1, ALL: 3 
 }
 
 export const Role = {

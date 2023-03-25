@@ -11,6 +11,7 @@ import Address from '../pages/Profile/Address'
 import AddressEdit from '../pages/Profile/AddressEdit'
 import AccountInfo from '../pages/Profile/AccountInfo'
 import { CategoryList } from '../configs/config'
+import OrderDetail from '../pages/Profile/OrderDetail'
 
 export const publicRoutes = [
   {
@@ -50,8 +51,14 @@ export const publicRoutes = [
     exact: true
   },
   {
+    key: 'order-detail',
+    path: '/profile/orders/detail/:id',
+    element: <OrderDetail/>,
+    exact: true
+  },
+  {
     key: 'my-orders',
-    path: '/profile/orders',
+    path: '/profile/orders/:type',
     element: <ListOrder/>,
     exact: true
   },
@@ -74,25 +81,25 @@ export const publicRoutes = [
     exact: true
   },
   {
-    key: 'Title',
+    key: 'title',
     path: '/title/:slug',
     element: <TitleDetail />,
     exact: true
   },
   {
-    key: 'Searching1',
+    key: 'searching1',
     path: '/catalog-search',
     element: <CatalogSearch type='catalog-search'/>,
     exact: true
   },
   {
-    key: 'Searching2',
+    key: 'searching2',
     path: `/${CategoryList[0].slug}`,
     element: <CatalogSearch type={CategoryList[0].slug}/>,
     exact: true
   },
   {
-    key: 'Searching3',
+    key: 'searching3',
     path: `/${CategoryList[1].slug}`,
     element: <CatalogSearch type={CategoryList[1].slug}/>,
     exact: true
@@ -101,13 +108,13 @@ export const publicRoutes = [
 
 export const onlyHeaderRoutes = [
   {
-    key: 'Cart',
+    key: 'cart',
     path: '/cart',
     element: <Cart />,
     exact: true
   },
   {
-    key: 'Checkout',
+    key: 'checkout',
     path: '/checkout',
     element: <Checkout />,
     exact: true

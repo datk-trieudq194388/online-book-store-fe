@@ -27,7 +27,10 @@ function CartTitleItem(props) {
 
     const c = e.target.checked
     const validRefToken = await RefreshToken();
-    if(!validRefToken) navigate('/login');
+    if(!validRefToken){
+      navigate('/login');
+      return;
+    } 
 
     const token = localStorage.getItem('accessToken');
     const res = await updateCartItem(token, props.item._id, {isChecked: c});
@@ -46,7 +49,10 @@ function CartTitleItem(props) {
       const minus = count - 1;
       if(minus >= 1){
         const validRefToken = await RefreshToken();
-        if(!validRefToken) navigate('/login');
+        if(!validRefToken){
+          navigate('/login');
+          return;
+        } 
 
         const token = localStorage.getItem('accessToken');
         const res = await updateCartItem(token, props.item._id, {count: minus});
@@ -66,7 +72,10 @@ function CartTitleItem(props) {
       const plus = count + 1;
       if(plus <= props.item.title.quantity){
         const validRefToken = await RefreshToken();
-        if(!validRefToken) navigate('/login');
+        if(!validRefToken){
+          navigate('/login');
+          return;
+        } 
 
         const token = localStorage.getItem('accessToken');
         const res = await updateCartItem(token, props.item._id, {count: plus});
@@ -84,7 +93,10 @@ function CartTitleItem(props) {
 
   async function deleteHandle(){
     const validRefToken = await RefreshToken();
-    if(!validRefToken) navigate('/login');
+    if(!validRefToken){
+      navigate('/login');
+      return;
+    } 
 
     const token = localStorage.getItem('accessToken');
     const res = await deleteCartItem(token, props.item._id);
@@ -97,6 +109,7 @@ function CartTitleItem(props) {
 
   function goToTitleDetail(){
     navigate('/title/' + props.item.title.slug);
+    window.scrollTo(0, 0);
   }
 
   return (

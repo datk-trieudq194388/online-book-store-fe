@@ -8,11 +8,8 @@ import TitleItem from '../../components/Title/TitleItem';
 import { CategoryList } from '../../configs/config';
 import { ViewType } from '../../configs/global';
 import { getUserTitle } from '../../api/TitleAPI';
-import { useNavigate } from 'react-router-dom';
 
-function Home(props) {
-  const navigate = useNavigate();
-
+function Home() {
   const [viewSelected, setViewSelected] = useState(ViewType.NEWEST);
   const [categorySelected, setCategorySelected] = useState(0);
   const [titles, setTitles] = useState([])

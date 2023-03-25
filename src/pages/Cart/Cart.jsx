@@ -16,7 +16,10 @@ function Cart() {
   
   async function fetchData() {
     const validRefToken = await RefreshToken();
-    if(!validRefToken) navigate('/login');
+    if(!validRefToken){
+      navigate('/login');
+      return;
+    } 
 
     const token = localStorage.getItem('accessToken');
     
@@ -58,7 +61,10 @@ function Cart() {
     const c = e.target.checked
     if(cartItems?.length != 0){
       const validRefToken = await RefreshToken();
-      if(!validRefToken) navigate('/login');
+      if(!validRefToken){
+        navigate('/login');
+        return;
+      } 
 
       const token = localStorage.getItem('accessToken');
       const res = await checkAllCartItems(token, c);

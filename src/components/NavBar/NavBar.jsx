@@ -16,17 +16,22 @@ function NavBar() {
       navigate(`/catalog-search?q=${search}`);
     else 
       navigate('/catalog-search');
-    
+    window.scrollTo(0, 0)
   }
 
   const handleEnter = (e) => {
     if (e.keyCode === 13) handleSearch();
   }
 
+  function goToHome(){
+    navigate('/');
+    window.scrollTo(0, 0);
+  }
+
   return (
     <div className='nav-bar'>
       <div className='header-left'>
-         <img className='logo-img' src={logo} alt='logo' onClick={() => navigate('/')}/>
+         <img className='logo-img' src={logo} alt='logo' onClick={goToHome}/>
       </div>
      
       <div className='header-center' >

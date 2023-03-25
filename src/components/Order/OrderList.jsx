@@ -1,9 +1,38 @@
 import './orderList.css'
-import { exampleOrders } from '../../configs/config'
+import { RefreshToken } from '../../configs/config'
 import OrderItem from './OrderItem'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
+import { getMyOrders } from '../../api/OrderAPI'
 
 
-function OrderList(){
+function OrderList(props){
+    const navigate = useNavigate();
+
+    const [orderList, setOrderList] = useState([{
+        _id: '', recipientInfo: '', finalPrice: '', status: '', createdAt: ''
+    }])
+
+    useEffect(() => {
+        async function fetchData() {
+            const validRefToken = await RefreshToken();
+            if(!validRefToken){
+                navigate('/login');
+                return;
+            } 
+        
+            const token = localStorage.getItem('accessToken');
+            
+            const res = await getMyOrders(token, props.type, props.limit);
+        
+            if (!res.ok)
+                alert('Gửi yêu cầu thất bại, hãy thử lại!')
+            else setOrderList(res.data);
+        }
+      
+        fetchData();
+    }, [props.type, props.limit])
 
     return (
         <div className="order-list-wrap">
@@ -26,10 +55,14 @@ function OrderList(){
                 <div className='order-list-header-see-detail'>
                 </div>
             </div>
-
+            <div style={{display:(orderList?.length == 0 ? 'flex' : 'none'),
+                  padding: '8px', color: '#7a7e7f', justifyContent:'center'}}
+              >
+                Bạn chưa có đơn hàng nào.
+            </div>
             <div className='order-list-items'>
             {
-                exampleOrders.map((item, i)=>{
+                orderList.map((item, i)=>{
                     return(
                         <OrderItem key={i} orderInfo={item}/>
                     )

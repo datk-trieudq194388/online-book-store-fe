@@ -7,6 +7,7 @@ import CategorySide from '../../components/Profile/CategorySide';
 import OrderList from '../../components/Order/OrderList';
 import { RefreshToken } from '../../configs/config';
 import { getAccountInfo } from '../../api/UserAPI';
+import { OrderStatus } from '../../configs/global';
 
 function Overral(){
     const navigate = useNavigate();
@@ -18,7 +19,10 @@ function Overral(){
     useEffect(()=>{
         async function fetchProfileData() {
             const validRefToken = await RefreshToken();
-            if(!validRefToken) navigate('/login');
+            if(!validRefToken){
+              navigate('/login');
+              return;
+            } 
 
             const token = localStorage.getItem('accessToken');
             
@@ -48,6 +52,10 @@ function Overral(){
           
     }, []);
 
+    function goTo(e) {
+        navigate(e);
+        window.scrollTo(0, 0);
+    }
 
     return(
         <div className='profile-page'>
@@ -59,7 +67,7 @@ function Overral(){
                 <div className='profile-right-side-label'>
                     <span>THÔNG TIN TÀI KHOẢN</span>
                     <span className='overral-page-side-label'
-                        onClick={()=>navigate('/profile/account-info')}
+                        onClick={()=>goTo('/profile/account-info')}
                     >
                         Cập nhật tài khoản</span>
                 </div>
@@ -72,18 +80,18 @@ function Overral(){
                 <div className='profile-right-side-label recent-orders'>
                     <span>NHỮNG ĐƠN HÀNG GẦN ĐÂY</span>
                     <span className='overral-page-side-label'
-                        onClick={()=>navigate('/profile/orders')}
+                        onClick={()=>goTo('/profile/orders/all')}
                     >   
                         Xem tất cả</span>
                 </div>
                 <div className='titledetail-separate-line'></div> 
                 <div className='recent-orders-content'>
-                    <OrderList/>
+                    <OrderList type={OrderStatus.ALL} limit={4}/>
                 </div>
                 <div className='profile-right-side-label my-address'>
                     <span>SỔ ĐỊA CHỈ</span>
                     <span className='overral-page-side-label'
-                        onClick={()=>navigate('/profile/address/edit')}
+                        onClick={()=>goTo('/profile/address/edit')}
                     >
                         Cập nhật địa chỉ</span>
                 </div>
