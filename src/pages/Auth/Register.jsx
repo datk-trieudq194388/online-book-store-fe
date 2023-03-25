@@ -21,7 +21,7 @@ function Register() {
     flag = CheckValidate(document, 'phone-number', 'password');
 
     const warning = document.getElementById('warning-password-check');
-    // Show warning if password check is empty or wrong
+    // show warning if password check is empty or wrong
     if (passwordCheck) {
       if (passwordCheck !== password) {
         warning.classList.remove('hidden');

@@ -2,7 +2,7 @@ import './searching.css';
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { CategoryList } from '../../configs/config';
 
-function AllCategoryGroup(props) {
+function AllCategoryGroup() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const allParams = {};

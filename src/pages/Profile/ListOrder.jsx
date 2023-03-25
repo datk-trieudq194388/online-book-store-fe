@@ -46,6 +46,7 @@ function ListOrder(){
             if (!res.ok)
                 alert('Gửi yêu cầu thất bại, hãy thử lại!')
             else {
+                // set number of orders of each types
                 let all = 0;
                 Object.entries(res.data).forEach(([key, value]) => {
                     all += value;

@@ -68,7 +68,7 @@ function Checkout() {
     else if(checkedTitles[0] != ''){
       let tPrice = 0;
       checkedTitles.map((item) => {
-        tPrice += (item.title?.price * item.count)
+        return tPrice += (item.title?.price * item.count)
       })
       setTotalPrice(tPrice);
     }

@@ -1,8 +1,7 @@
 import './form.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Gender } from '../../configs/global';
 import PhoneNumberUpdatePopup from '../Popup/PhoneNumberUpdate';
-import { useState } from 'react';
 import { RefreshToken } from '../../configs/config';
 import { useNavigate } from 'react-router';
 import { updateAccountInfo } from '../../api/UserAPI';

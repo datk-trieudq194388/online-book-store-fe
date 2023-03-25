@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
-
 import './auth.css'
 import { CheckValidate } from '../../configs/config'
 import { login } from '../../api/AuthAPI';

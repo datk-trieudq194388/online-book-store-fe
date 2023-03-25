@@ -73,9 +73,9 @@ function AddressEdit(){
         }
     }
 
-    async function handleDeletingResult(res){
+    async function handleDeletingResult(result){
         setDeletingState(false);
-        if(res){
+        if(result){
             const validRefToken = await RefreshToken();
             if(!validRefToken){
               navigate('/login');

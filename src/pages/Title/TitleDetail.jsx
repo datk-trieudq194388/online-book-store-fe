@@ -38,7 +38,7 @@ function TitleDetail() {
 
     fetchData();
 
-  }, []);
+  }, [slug]);
 
   const formattedPrice = new Intl.NumberFormat("de-DE").format(title.price);
 

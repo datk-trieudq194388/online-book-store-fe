@@ -32,18 +32,6 @@ export const publicRoutes = [
     element: <Home />,
     exact: true
   },
-  // {
-  //   key: "homeChildren",
-  //   path: '/:type',
-  //   element: <Home />,
-  //   exact: true
-  // },
-  // {
-  //   key: "homeChildren2",
-  //   path: '/:type=:param',
-  //   element: <Home />,
-  //   exact: true
-  // },
   {
     key: 'profile',
     path: '/profile/overral',

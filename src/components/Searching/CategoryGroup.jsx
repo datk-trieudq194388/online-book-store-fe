@@ -1,7 +1,6 @@
 import './searching.css';
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { CategoryList } from '../../configs/config';
-import { useState } from 'react';
 
 function CategoryGroup(props) {
     const navigate = useNavigate();
@@ -10,8 +9,8 @@ function CategoryGroup(props) {
     for (const [key, value] of searchParams.entries())
         allParams[key] = value;
     
+    // set cat=null if cat is not in catList (to handle highlighting the category label)
     let cat = allParams.cat;
-
     const catList = CategoryList[props.type].categories;
     for(let i = 0; i< catList.length; i++){
         if(cat == catList[i].slug)
@@ -20,6 +19,7 @@ function CategoryGroup(props) {
             cat = null;
     }
 
+    // set current category to url params
     function handleCategoryParams(params = null){
      
         if(params){

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CDBModalFooter, CDBLink, CDBBtn, CDBIcon, CDBBox } from 'cdbreact';
+import { CDBModalFooter, CDBBtn, CDBIcon, CDBBox } from 'cdbreact';
 import logo from '../../images/logo.png'
 import {EnvironmentFilled, MailFilled, PhoneFilled} from '@ant-design/icons'
 

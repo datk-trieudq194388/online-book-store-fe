@@ -28,6 +28,7 @@ function Home() {
 
   }, [])
 
+  // newest, bestsellers or most-views
   async function selectTypeOfTrending(type){
 
     const res = await getUserTitle(type);
@@ -36,12 +37,11 @@ function Home() {
       alert('Gửi yêu cầu thất bại, hãy thử lại!')
     else setTitles(res.data)
     
-
     setViewSelected(type);
   }
 
+  // vnese-books or foreign-books
   async function selectTypeOfCategory(type){
-
     setCategorySelected(type);
   }
 
