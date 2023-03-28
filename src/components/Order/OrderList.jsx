@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { getMyOrders } from '../../api/OrderAPI'
+import { OrderStatus } from '../../configs/global'
 
 
 function OrderList(props){
@@ -23,8 +24,26 @@ function OrderList(props){
             } 
         
             const token = localStorage.getItem('accessToken');
+
+            let type;
+            switch(props.type){
+                case('pending'): 
+                    type = OrderStatus.PENDING;
+                    break;
+                case('processing'):
+                    type = OrderStatus.PROCESSING;
+                    break;
+                case('completed'):
+                    type = OrderStatus.COMPLETED;
+                    break;
+                case('canceled'):
+                    type = OrderStatus.CANCELED;
+                    break;
+                default:
+                    type = OrderStatus.ALL;
+            }
             
-            const res = await getMyOrders(token, props.type, props.limit);
+            const res = await getMyOrders(token, type, props.limit);
         
             if (!res.ok)
                 alert('Gửi yêu cầu thất bại, hãy thử lại!')

@@ -11,7 +11,7 @@ export const login = async (account) => {
           phoneNumber: account.phoneNumber,
           password: account.password
         }),
-        credentials: 'include' // to get cookie but don't success yet
+        // credentials: 'include' // to get cookie but don't success yet
       }
 
       const response = await fetch(`${SERVER_ADDR}/user/login`, options);
