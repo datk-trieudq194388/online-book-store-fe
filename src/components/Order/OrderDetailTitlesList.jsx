@@ -58,7 +58,10 @@ function OrderDetailTitlesList(props){
                                 <span>{trimmedName}</span>
                             </div>
                             <div className='title-list-item-sku'>
-                                <span>{item._id}</span> 
+                                {item.bookIDs?.map((e, i) => {
+                                    return  <><span key={i}>{e}</span><br/></>
+                                })}
+                               
                             </div>
                             <div className='title-list-item-unitprice'>
                                 <span>{new Intl.NumberFormat("de-DE").format(price)} đ</span>
