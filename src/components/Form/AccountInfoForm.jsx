@@ -19,7 +19,7 @@ function AccountInfoForm(props){
         document.getElementById('first-name').value = props.user.firstname ?? '';
         document.getElementById('gender-' + (props.user.gender ?? Gender.OTHER)).checked = true;
         setPhoneNumber(props.user.phoneNumber);
-        setEmail(props.user.email);
+        setEmail(props.user.email ?? '');
     }, [props.user])
     
     async function handlePhoneNumberResult(result){

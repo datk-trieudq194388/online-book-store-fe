@@ -77,7 +77,7 @@ function ListOrder(){
                         <div className='type-order-label'>Đang xử lý</div>
                     </div>
                     <div 
-                        className={'type-order-wrap'+(type === 'conpleted' ? ' active' : '')} 
+                        className={'type-order-wrap'+(type === 'completed' ? ' active' : '')} 
                         onClick={()=>selectTypeOfOrders('completed')}
                     >
                         <div className='type-order-number'>{counts[3]}</div>
